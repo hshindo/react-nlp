@@ -1,12 +1,22 @@
 # react-nlp
 
+Annotate text components built with React.
+
 ## Installation
 
-TODO:
+```
+npm install react-nlp
+```
 
-## Development
+## Usage
 
-TODO:
+```
+import { View } from "react-nlp";
+```
+
+```
+<View data={data} />
+```
 
 ## License
 

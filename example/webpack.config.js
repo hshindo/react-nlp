@@ -12,11 +12,11 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: "eslint-loader"}
+      // { test: /\.jsx?$/, exclude: /node_modules/, loader: "eslint-loader"}
     ],
     loaders: [
       { test: /\.html$/, loader: "file?name=[name].[ext]" },
-      { test: /\.css$/, loader: "file?name=[name].[ext]" },
+      { test: /\.css$/, loader: "style!css?modules" },
       { test: /\.jsx?$/, exclude: /node_modules/,  loader: "babel" }
     ]
   },
