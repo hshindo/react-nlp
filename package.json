@@ -5,24 +5,25 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --progress --colors",
-    "start": "webpack-dev-server --hot --inline --progress --colors"
+    "build": "babel src -d lib",
+    "lint": "eslint src",
+    "build:example": "webpack --progress --colors --config example/webpack.config.js",
+    "start": "webpack-dev-server --hot --inline --progress --colors --config example/webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hshindo/react-nlp.git"
   },
   "author": "",
+  "main": "lib/index.js",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hshindo/react-nlp/issues"
   },
   "homepage": "https://github.com/hshindo/react-nlp#readme",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.6.0"
+    "react-dom": "^15.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -36,6 +37,7 @@
     "eslint-loader": "^1.6.0",
     "eslint-plugin-react": "^6.4.1",
     "file-loader": "^0.9.0",
+    "react-ace": "^3.6.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
