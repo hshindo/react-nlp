@@ -5,42 +5,31 @@ import { View } from "../../../lib";
 
 const testData = [
   {
-    chunk: ["Darth", "Vador", ",", "also", "known", "as", "Anakin", "Skywalker", "is", "a", "fictional", "character", "."],
-    annotations: [
-      [
-        { label: "Darth_Vador", from: 0, to: 1 },
-        { label: "Darth_Vador", from: 6, to: 7 }
-      ],
-      [
-        { label: "PERSON", from: 0, to: 1, color: "blue"},
-        { label: "PERSION", from: 6, to: 7, color: "blue"}
-      ],
-      [
-        { label: "NNP", from: 0, to: 0, color: "pink" },
-        { label: "NNP", from: 1, to: 1, color: "pink" },
-        { label: ",", from: 2, to: 2, color: "yellow" },
-        { label: "RB", from: 3, to: 3, color: "green" },
-        { label: "VBN", from: 4, to: 4, color: "red" },
-        { label: "IN", from: 5, to: 5, color: "pink" }
-      ],
+    text: "Darth Vador, also known as Anakin Skywalker is a fictional character.",
+    annos: [
+      ["wiki", 0, 10, "Darth_Vador"],
+      ["wiki", 27, 37, "Darth_Vador"],
+      ["ne", 0, 10, "PERSON"],
+      ["ne", 27, 37, "PERSON"],
+      ["pos", 0, 4, "NNP"],
+      ["pos", 6, 10, "NNP"],
+      ["pos", 11, 11, ","]
     ],
     subText: [
       "ダースベイダー, またはアナキンスカイウォーカーは, 空想のキャラクターだ。"
     ]
   },
   {
-    chunk: ["He", "is", "originally", "a", "good", "person", ",", "but"],
-    annotations: [
-      [
-        { label: "PRP", from: 0, to: 0, color: "pink" },
-        { label: "VBZ", from: 1, to: 1, color: "pink" },
-        { label: "RB", from: 2, to: 2, color: "yellow" },
-        { label: "DT", from: 3, to: 3, color: "green" },
-        { label: "JJ", from: 4, to: 4, color: "red" },
-        { label: "NN", from: 5, to: 5, color: "pink" },
-        { label: ",", from: 6, to: 6, color: "pink" },
-        { label: "CC", from: 7, to: 7, color: "pink" }
-      ]
+    text: "He is originally a good person, but",
+    annos: [
+      ["pos", 0, 1, "PRP"],
+      ["pos", 3, 4, "VBZ"],
+      ["pos", 6, 15, "RB"],
+      ["pos", 17, 17, "DT"],
+      ["pos", 19, 22, "JJ"],
+      ["pos", 24, 29, "NN"],
+      ["pos", 30, 30, ","],
+      ["pos", 32, 34, "CC"]
     ],
     subText: [
       "彼はもともと良い人間だった、しかし"
@@ -49,7 +38,7 @@ const testData = [
 ];
 
 class App extends Component {
-  onEditorChange(arg) {
+  onEditorChange(newValue) {
   }
   render() {
     const { editor, actions } = this.props;
@@ -63,13 +52,27 @@ class App extends Component {
               value=""
               mode="markdown"
               theme="github"
-              onChange={this.onEditorChange}
+              onChange={this.onEditorChange.bind(this)}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{$blockScrolling: true}}
           />
         </div>
         <div style={{float: "left", width: "50%"}}>
-          <View data={testData} linum={true} />
+          <View data={testData}
+                linum={true}
+                types={["wiki", "ne", "pos"]}
+                colors={{
+                  wiki: {
+                    "Darth_Vador": "gray"
+                  },
+                  ne: {
+                    "PERSON": "yellow"
+                  },
+                  pos: {
+                    ",": "lightgreen"
+                  }
+                }}
+          />
         </div>
       </div>
     );

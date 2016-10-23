@@ -7,43 +7,68 @@ class Line extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      chunkRects: null
+      charRects: null
     };
   }
 
-  handleChunkCalculated(chunkRects) {
+  handleTextCalculated(charRects) {
     this.setState({
-      chunkRects: chunkRects
+      charRects: charRects
     });
   }
 
-  calcAnnotation(annotation) {
-    // from, to ,label
-    if (annotation.from > annotation.to || !this.state.chunkRects) {
+  calcPosition(from, to) {
+    if (from > to || !this.state.charRects) {
       return null;
     }
-    const fromChunkRect = this.state.chunkRects[annotation.from];
-    const toChunkRect = this.state.chunkRects[annotation.to];
-    const x = fromChunkRect.x;
-    const width = toChunkRect.x + toChunkRect.width - fromChunkRect.x;
+    const fromCharRect = this.state.charRects[from];
+    const toCharRect = this.state.charRects[to];
+    const x = fromCharRect.x;
+    const width = toCharRect.x + toCharRect.width - fromCharRect.x;
     return {x, width};
   }
 
   render() {
-    const { chunk, annotations, linum } = this.props;
+    const { text, annotations, linum, colors, types } = this.props;
     let annotationLines = null;
-    if (annotations && this.state.chunkRects) {
+    let infoPerLine = null;
+    if (types && annotations && this.state.charRects) {
+      infoPerLine = [];
+      annotations.forEach((annotation, i) => {
+        const type = annotation[0];
+        const from = annotation[1];
+        const to = annotation[2];
+        const name = annotation[3];
+        const pos = this.calcPosition(from, to);
+        if (!pos) {
+          return;
+        }
+        const typeIdx = types.indexOf(type);
+        if (typeIdx === -1) {
+          return;
+        }
+        let color = "white";
+        if (colors && colors[type] && colors[type][name]) {
+          color = colors[type][name];
+        }
+        if (!infoPerLine[typeIdx]) {
+          infoPerLine[typeIdx] = [];
+        }
+        infoPerLine[typeIdx].push({
+          name: name,
+          x: pos.x,
+          width: pos.width,
+          color: color
+        })
+      });
       annotationLines = [];
-      annotations.forEach((perLine, i) => {
+      infoPerLine.forEach((lineInfo, i) => {
+        if (!lineInfo) {
+          return;
+        }
         const labels = [];
-        perLine.forEach(annotation => {
-          const pos = this.calcAnnotation(annotation);
-          labels.push({
-            name: annotation.label,
-            x: pos.x,
-            width: pos.width,
-            color: annotation.color || "white"
-          });
+        lineInfo.forEach(info => {
+          labels.push(info);
         });
         annotationLines.push(
           <AnnotationLine key={i} labels={labels} />
@@ -61,7 +86,7 @@ class Line extends React.Component {
         {linumBox}
         <div style={{display: "table-cell"}}>
           {annotationLines}
-          <ChunkedTextLine chunk={chunk} onChunkCalculated={this.handleChunkCalculated.bind(this)} />
+          <ChunkedTextLine text={text} onTextCalculated={this.handleTextCalculated.bind(this)} />
         </div>
       </div>
     );
