@@ -9,7 +9,7 @@ const lineDivStyle = {
 
 class AnnotationLine extends React.Component {
   render() {
-    const { colors, labels } = this.props;
+    const { labels } = this.props;
     const boxes = [];
     labels.forEach((label, i) => {
       const styles = {

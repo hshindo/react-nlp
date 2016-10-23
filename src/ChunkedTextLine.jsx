@@ -3,56 +3,38 @@ const styles = {
   position: "absolute",
 };
 
-const SP_SUFFIX = "sp";
-
-Number.isNaN = Number.isNaN || function(value) {
-  return typeof value === "number" && value !== value;
-};
-
 class ChunkedTextLine extends React.Component {
   componentDidMount() {
-    const { onChunkCalculated } = this.props;
+    const { onTextCalculated } = this.props;
     const rectList = [];
-    Object.keys(this.refs).filter(refId => !Number.isNaN(Number(refId))).sort((a, b) => {
+    Object.keys(this.refs).sort((a, b) => {
       a = Number(a);
       b = Number(b);
       if ( a < b ) return -1;
       if ( a > b ) return 1;
       return 0;
     }).forEach(refId => {
-      if (Number(refId) === NaN) {
-        return;
-      }
       const prevChunkRect = rectList[rectList.length - 1];
       let x = 0;
       if (prevChunkRect) {
         x = prevChunkRect.x + prevChunkRect.width;
-      }
-      const prevSp = this.refs[(refId - 1) + SP_SUFFIX];
-      if (prevSp) {
-        x += prevSp.offsetWidth;
       }
       rectList.push({
         x: x,
         width: this.refs[refId].offsetWidth
       });
     });
-    onChunkCalculated(rectList);
+    onTextCalculated(rectList);
   }
   render() {
-    const { chunk, color, annotations } = this.props;
+    const { text } = this.props;
     const spans = [];
     let keyIdx = 0;
-    chunk.forEach((text, i) => {
+    for (let i = 0; i < text.length; i++) {
       spans.push(
-        <span key={keyIdx++} ref={i}>{text}</span>
+        <span key={i} ref={i}>{text[i]}</span>
       );
-      if (i !== chunk.length) {
-        spans.push(
-          <span key={keyIdx++} ref={i+SP_SUFFIX}> </span>
-        );
-      }
-    });
+    }
     return (
       <div>
         {spans}

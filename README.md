@@ -15,7 +15,7 @@ import { View } from "react-nlp";
 ```
 
 ```
-<View data={data} />
+<View types={types} colors={colors} data={data} />
 ```
 
 ## License
