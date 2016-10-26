@@ -18,11 +18,15 @@ class Line extends React.Component {
   }
 
   calcPosition(from, to) {
-    if (from > to || !this.state.charRects) {
+    const rects = this.state.charRects;
+    if (from > to || !rects) {
       return null;
     }
     const fromCharRect = this.state.charRects[from];
     const toCharRect = this.state.charRects[to];
+    if (!fromCharRect || !toCharRect) {
+      return null;
+    }
     const x = fromCharRect.x;
     const width = toCharRect.x + toCharRect.width - fromCharRect.x;
     return {x, width};

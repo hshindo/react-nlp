@@ -1,10 +1,24 @@
 import React from "react";
+
 const styles = {
   position: "absolute",
 };
 
 class ChunkedTextLine extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      needsNotify: true
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+      this.setState({
+        needsNotify: this.props.text !== nextProps.text
+      });
+  }
+
+  notifyTextCalculated() {
     const { onTextCalculated } = this.props;
     const rectList = [];
     Object.keys(this.refs).sort((a, b) => {
@@ -26,6 +40,17 @@ class ChunkedTextLine extends React.Component {
     });
     onTextCalculated(rectList);
   }
+
+  componentDidUpdate() {
+    if (this.state.needsNotify) {
+      this.notifyTextCalculated();
+    }
+  }
+
+  componentDidMount() {
+    this.notifyTextCalculated();
+  }
+
   render() {
     const { text } = this.props;
     const spans = [];
