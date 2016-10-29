@@ -1,8 +1,14 @@
+// TODO: remove
 import React from "react";
+// import ResizeSensor from "css-element-queries/src/ResizeSensor";
 
 const styles = {
   position: "absolute",
 };
+
+Number.isNaN = Number.isNaN || function(value) {
+  return typeof value === "number" && value !== value;
+}
 
 class ChunkedTextLine extends React.Component {
   constructor(props) {
@@ -21,13 +27,21 @@ class ChunkedTextLine extends React.Component {
   notifyTextCalculated() {
     const { onTextCalculated } = this.props;
     const rectList = [];
-    Object.keys(this.refs).sort((a, b) => {
+    let firstSpanLeft = 0;
+    Object.keys(this.refs).filter(refId => {
+      return !Number.isNaN(Number(refId));
+    }).sort((a, b) => {
       a = Number(a);
       b = Number(b);
       if ( a < b ) return -1;
       if ( a > b ) return 1;
       return 0;
     }).forEach(refId => {
+      const e = this.refs[refId];
+      const rect = {left: e.offsetLeft, top: e.offsetTop, width: e.offsetWidth, height: e.offsetHeight};
+      if (refId == 0) {
+        firstSpanleft = rect.left;
+      }
       const prevChunkRect = rectList[rectList.length - 1];
       let x = 0;
       if (prevChunkRect) {
@@ -48,6 +62,12 @@ class ChunkedTextLine extends React.Component {
   }
 
   componentDidMount() {
+    /* new ResizeSensor(this.refs.container, () => {
+     *   const style = window.getComputedStyle(this.refs.container);
+     *   const w = style.width;
+     *   const h = style.height;
+     *   console.log(w, h);
+     * });*/
     this.notifyTextCalculated();
   }
 
@@ -61,7 +81,7 @@ class ChunkedTextLine extends React.Component {
       );
     }
     return (
-      <div>
+      <div ref="container">
         {spans}
       </div>
     );
