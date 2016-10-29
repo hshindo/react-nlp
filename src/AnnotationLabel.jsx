@@ -1,4 +1,5 @@
 import React from "react";
+import currentTheme from "./Theme";
 
 class AnnotationLabel extends React.Component {
   render() {
@@ -13,10 +14,11 @@ class AnnotationLabel extends React.Component {
           position: "absolute",
           left: "50%",
           backgroundColor: color,
-          border: "solid 1px gray",
+          border: currentTheme.labelBorder,
           borderRadius: 3,
           transform: "translateX(-50%)",
-          padding: "2px 3px"
+          color: currentTheme.labelColor,
+          padding: currentTheme.labelPadding
         }}>{text}</span>
       </div>
     );
