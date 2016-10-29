@@ -1,0 +1,82 @@
+import React from "react";
+import ResizeSensor from "css-element-queries/src/ResizeSensor";
+
+const styles = {
+  position: "absolute",
+  visibility: "hidden",
+  top: 0,
+  left: 0,
+  width: "100%"
+};
+
+Number.isNaN = Number.isNaN || function(value) {
+  return typeof value === "number" && value !== value;
+}
+
+class LineDetector extends React.Component {
+
+  notifyCalculated() {
+    const { handler } = this.props;
+    const result = [];
+    let prevXWidth = null;
+    let currentLineTop = 0;
+    let currentLine = 0;
+    Object.keys(this.refs).filter(refId => {
+      return !Number.isNaN(Number(refId));
+    }).sort((a, b) => {
+      a = Number(a);
+      b = Number(b);
+      if ( a < b ) return -1;
+      if ( a > b ) return 1;
+      return 0;
+    }).forEach(refId => {
+      const e = this.refs[refId];
+      const rect = {left: e.offsetLeft, top: e.offsetTop, width: e.offsetWidth, height: e.offsetHeight};
+      if (refId == 0) {
+        currentLineTop = rect.top;
+      }
+      if (currentLineTop !== rect.top) {
+        currentLineTop = rect.top;
+        currentLine++;
+        prevXWidth = null;
+      }
+      let x = 0;
+      if (prevXWidth) {
+        x = prevXWidth.x + prevXWidth.width;
+      }
+      const res = {line: currentLine, char: e.innerHTML, x: x, width: rect.width};
+      result.push(res);
+      prevXWidth = res;
+    });
+    handler(result);
+  }
+
+  componentDidUpdate() {
+    this.notifyCalculated();
+  }
+
+  componentDidMount() {
+    new ResizeSensor(this.refs.container, () => {
+      this.notifyCalculated();
+    });
+    this.notifyCalculated();
+  }
+
+  render() {
+    const { text } = this.props;
+    const spans = [];
+    let keyIdx = 0;
+    for (let i = 0; i < text.length; i++) {
+      spans.push(
+        <span key={i} ref={i}>{text[i]}</span>
+      );
+    }
+    return (
+      <div ref="container" style={styles}>
+        {spans}
+      </div>
+    );
+  }
+}
+
+export default LineDetector;

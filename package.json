@@ -2,7 +2,7 @@
   "name": "react-nlp",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
@@ -15,7 +15,6 @@
     "url": "git+https://github.com/hshindo/react-nlp.git"
   },
   "author": "",
-  "main": "lib/index.js",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hshindo/react-nlp/issues"
@@ -42,5 +41,8 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "css-element-queries": "^0.3.2"
   }
 }
