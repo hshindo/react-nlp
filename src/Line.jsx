@@ -1,33 +1,24 @@
 import React from "react";
 
 import AnnotationLine from "./AnnotationLine";
-import LineDetector from "./LineDetector";
-import InnerLineContainer from "./InnerLineContainer";
+import LineAnalyzer from "./LineAnalyzer";
+import InnerLineContainer, {DataHandler} from "./InnerLineContainer";
 
 class Line extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      charRects: null,
-      handlers: {
-        onData: null
-      }
+      dataHandler: new DataHandler()
     };
   }
 
-  handleTextCalculated(charRects) {
-    this.setState({
-      charRects: charRects
-    });
-  }
-
-  handler(result) {
+  onAnalysis(result) {
     const { annotations, colors, types} = this.props;
-    this.state.handlers.onData(result, annotations, colors, types);
+    this.state.dataHandler.fire(result, annotations, colors, types);
   }
 
   render() {
-    const { text, annotations, linum, colors, types } = this.props;
+    const { text, annotations, linum, colors, types, lineBreak } = this.props;
     let linumBox = null;
     if (linum != null) {
       linumBox = (
@@ -40,8 +31,8 @@ class Line extends React.Component {
       <div style={{position: "relative", minHeight: 16}}>
         {linumBox}
         <div style={{position: "relative", marginLeft: 30}}>
-          <InnerLineContainer handlers={this.state.handlers} />
-          <LineDetector text={text} handler={this.handler.bind(this)} />
+          <InnerLineContainer dataHandler={this.state.dataHandler} />
+          <LineAnalyzer text={text} lineBreak={lineBreak} onAnalysis={this.onAnalysis.bind(this)} />
         </div>
       </div>
     );

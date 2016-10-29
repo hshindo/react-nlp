@@ -1,6 +1,18 @@
 import React from "react";
 import AnnotationLine from "./AnnotationLine";
 
+export class DataHandler {
+  constructor() {
+    this.handlers = [];
+  }
+  fire(...args) {
+    this.handlers.forEach(h => h(...args));
+  }
+  handle(handler) {
+    this.handlers.push(handler);
+  }
+}
+
 class InnerLineContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +21,7 @@ class InnerLineContainer extends React.Component {
     };
   }
   componentDidMount() {
-    this.props.handlers.onData = this.onData.bind(this);;
+    this.props.dataHandler.handle(this.onData.bind(this));
   }
   onData(data, annotations, colors, types) {
     const result = [];
@@ -77,7 +89,7 @@ class InnerLineContainer extends React.Component {
         lines.push(
           <div key={i}>
             {annotationLines}
-            <div>{info.text}</div>
+            <div style={{whiteSpace: "nowrap"}}>{info.text}</div>
           </div>
         );
       });

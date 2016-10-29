@@ -1,22 +1,13 @@
 import React from "react";
 import ResizeSensor from "css-element-queries/src/ResizeSensor";
 
-const styles = {
-  position: "absolute",
-  visibility: "hidden",
-  top: 0,
-  left: 0,
-  width: "100%"
-};
-
 Number.isNaN = Number.isNaN || function(value) {
   return typeof value === "number" && value !== value;
 }
 
-class LineDetector extends React.Component {
-
-  notifyCalculated() {
-    const { handler } = this.props;
+class LineAnalyzer extends React.Component {
+  notifyAnalysis() {
+    const { onAnalysis, lineBreak } = this.props;
     const result = [];
     let prevXWidth = null;
     let currentLineTop = 0;
@@ -35,7 +26,7 @@ class LineDetector extends React.Component {
       if (refId == 0) {
         currentLineTop = rect.top;
       }
-      if (currentLineTop !== rect.top) {
+      if (lineBreak && currentLineTop !== rect.top) {
         currentLineTop = rect.top;
         currentLine++;
         prevXWidth = null;
@@ -48,28 +39,40 @@ class LineDetector extends React.Component {
       result.push(res);
       prevXWidth = res;
     });
-    handler(result);
+    onAnalysis(result);
   }
 
   componentDidUpdate() {
-    this.notifyCalculated();
+    this.notifyAnalysis();
   }
 
   componentDidMount() {
     new ResizeSensor(this.refs.container, () => {
-      this.notifyCalculated();
+      this.notifyAnalysis();
     });
-    this.notifyCalculated();
+    this.notifyAnalysis();
   }
 
   render() {
-    const { text } = this.props;
+    const { text, lineBreak } = this.props;
     const spans = [];
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       spans.push(
         <span key={i} ref={i}>{text[i]}</span>
       );
+    }
+    const styles = {
+      position: "absolute",
+      visibility: "hidden",
+      top: 0,
+      left: 0,
+      width: "100%"
+    };
+    if (lineBreak) {
+      styles.whiteSpace = "normal";
+    } else {
+      styles.whiteSpace = "nowrap";
     }
     return (
       <div ref="container" style={styles}>
@@ -79,4 +82,4 @@ class LineDetector extends React.Component {
   }
 }
 
-export default LineDetector;
+export default LineAnalyzer;
