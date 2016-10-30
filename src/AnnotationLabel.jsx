@@ -19,6 +19,7 @@ class AnnotationLabel extends React.Component {
           transform: "translateX(-50%)",
           color: currentTheme.labelColor,
           padding: currentTheme.labelPadding,
+          whiteSpace: "nowrap",
           cursor: "pointer"
         }} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{text}</span>
       </div>
