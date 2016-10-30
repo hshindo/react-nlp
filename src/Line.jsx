@@ -21,17 +21,19 @@ class Line extends React.Component {
   render() {
     const { text, annotations, linum, colors, types, lineBreak, bgColor } = this.props;
     let linumBox = null;
+    let lineMarginLeft = 0;
     if (linum != null) {
       linumBox = (
         <div style={{position: "absolute", width: 30, height: "100%", borderRight: currentTheme.border}}>
           <span style={{position: "absolute", transform: "translate(-50%, -50%)", top: "50%", left: "50%", color: currentTheme.linumColor}}>{linum}</span>
         </div>
       );
+      lineMarginLeft = 30;
     }
     return (
       <div style={{position: "relative", minHeight: 14, borderBottom: currentTheme.border, backgroundColor: bgColor}}>
         {linumBox}
-        <div style={{position: "relative", marginLeft: 30, padding: currentTheme.linePadding}}>
+        <div style={{position: "relative", marginLeft: lineMarginLeft, padding: currentTheme.linePadding}}>
           <InnerLineContainer dataHandler={this.state.dataHandler} />
           <LineAnalyzer text={text} lineBreak={lineBreak} onAnalysis={this.onAnalysis.bind(this)} />
         </div>
