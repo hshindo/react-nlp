@@ -64,33 +64,61 @@ const defaultData = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: testData[0].text + "\n" + testData[1].text
-    };
+    this.serverMode = location.search.indexOf("server=yes") >= 0;
+    if (this.serverMode) {
+      this.isOpen = false;
+      this.connection = new WebSocket("ws://jukainlp.hshindo.com");
+      this.connection.onopen = () => {
+        this.isOpen = true;
+        console.log("websocket open");
+      };
+      this.connection.onmessage = this.onMessage.bind(this);
+      this.state = {
+        text: ""
+      };
+    } else {
+      this.state = {
+        text: testData[0].text + "\n" + testData[1].text
+      };
+    }
+  }
+  onMessage(ev) {
+    this.setState({
+      data: JSON.parse(ev.data)
+    });
   }
   onEditorChange(newValue) {
+    if (this.serverMode && this.isOpen) {
+      this.connection.send(JSON.stringify({text: newValue}));
+    }
     this.setState({
       text: newValue
     });
   }
   render() {
-    const lines = this.state.text.split("\n");
-    for (let i = 0; i < lines.length; i++) {
-      if (i < 2) {
-        testData[i].text = lines[i];
-      } else {
-        if (testData[i]) {
-          testData[i].text = lines[i];
+    let data = null;
+    if (this.serverMode) {
+      data = this.state.data;
+    } else {
+      data = testData;
+      const lines = this.state.text.split("\n");
+      for (let i = 0; i < lines.length; i++) {
+        if (i < 2) {
+          data[i].text = lines[i];
         } else {
-          testData[i] = {
-            text: lines[i],
-            anno: defaultData.anno,
-            subText: defaultData.subText
+          if (data[i]) {
+            data[i].text = lines[i];
+          } else {
+            data[i] = {
+              text: lines[i],
+              anno: defaultData.anno,
+              subText: defaultData.subText
+            }
           }
         }
       }
+      data.length = lines.length;
     }
-    testData.length = lines.length;
     return (
       <div>
         <div style={{float: "left", width: "50%"}}>
@@ -107,7 +135,7 @@ class App extends Component {
           />
         </div>
         <div style={{float: "left", width: "50%"}}>
-          <View data={testData}
+          <View data={data}
                 linum={true}
                 types={["wiki", "ne", "pos"]}
                 colors={{
