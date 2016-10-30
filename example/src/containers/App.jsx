@@ -6,7 +6,7 @@ import { View } from "../../../lib";
 const testData = [
   {
     text: "Darth Vador, also known as Anakin Skywalker is a fictional character.",
-    annos: [
+    anno: [
       ["wiki", 0, 10, "Darth_Vador"],
       ["wiki", 27, 42, "Darth_Vador"],
       ["ne", 0, 10, "PERSON"],
@@ -21,7 +21,7 @@ const testData = [
   },
   {
     text: "He is originally a good person, but",
-    annos: [
+    anno: [
       ["pos", 0, 1, "PRP"],
       ["pos", 3, 4, "VBZ"],
       ["pos", 6, 15, "RB"],
@@ -39,7 +39,7 @@ const testData = [
 
 // 3行目以降に利用する適当なデータ
 const defaultData = {
-  annos: [
+  anno: [
     ["pos", 0, 1, "PRP"],
     ["pos", 3, 4, "VBZ"],
     ["pos", 6, 15, "RB"],
@@ -84,7 +84,7 @@ class App extends Component {
         } else {
           testData[i] = {
             text: lines[i],
-            annos: defaultData.annos,
+            anno: defaultData.anno,
             subText: defaultData.subText
           }
         }
