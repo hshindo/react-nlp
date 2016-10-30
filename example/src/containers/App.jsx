@@ -97,10 +97,26 @@ class App extends Component {
   }
   render() {
     let data = null;
+    let colors = null;
     if (this.serverMode) {
       data = this.state.data;
+      colors = {
+        pos: require("json!../colors/pos.json"),
+        ne: require("json!../colors/ne.json")
+      }
     } else {
       data = testData;
+      colors = {
+        wiki: {
+          "Darth_Vador": "gray"
+        },
+        ne: {
+          "PERSON": "yellow"
+        },
+        pos: {
+          ",": "lightgreen"
+        }
+      };
       const lines = this.state.text.split("\n");
       for (let i = 0; i < lines.length; i++) {
         if (i < 2) {
@@ -138,17 +154,7 @@ class App extends Component {
           <View data={data}
                 linum={true}
                 types={["wiki", "ne", "pos"]}
-                colors={{
-                  wiki: {
-                    "Darth_Vador": "gray"
-                  },
-                  ne: {
-                    "PERSON": "yellow"
-                  },
-                  pos: {
-                    ",": "lightgreen"
-                  }
-                }}
+                colors={colors}
           />
         </div>
       </div>
