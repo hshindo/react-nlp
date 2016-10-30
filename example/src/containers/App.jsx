@@ -8,9 +8,9 @@ const testData = [
     text: "Darth Vador, also known as Anakin Skywalker is a fictional character.",
     annos: [
       ["wiki", 0, 10, "Darth_Vador"],
-      ["wiki", 27, 41, "Darth_Vador"],
+      ["wiki", 27, 42, "Darth_Vador"],
       ["ne", 0, 10, "PERSON"],
-      ["ne", 27, 41, "PERSON"],
+      ["ne", 27, 42, "PERSON"],
       ["pos", 0, 4, "NNP"],
       ["pos", 6, 10, "NNP"],
       ["pos", 11, 11, ","]
