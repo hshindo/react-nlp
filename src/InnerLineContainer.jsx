@@ -1,5 +1,6 @@
 import React from "react";
 import AnnotationLine from "./AnnotationLine";
+import currentTheme from "./Theme";
 
 export class DataHandler {
   constructor() {
@@ -17,7 +18,8 @@ class InnerLineContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lineInfo: null
+      lineInfo: null,
+      markTarget: null
     };
   }
   componentDidMount() {
@@ -67,11 +69,26 @@ class InnerLineContainer extends React.Component {
         x: fromTarget.x,
         width: toTarget.x + toTarget.width - fromTarget.x,
         name: name,
-        color: color
+        color: color,
+        from: from,
+        to: to
       });
     });
     this.setState({
       lineInfo: result
+    });
+  }
+  onLabelMouseOver(label) {
+    this.setState({
+      markTarget: {
+        from: label.from,
+        to: label.to
+      }
+    });
+  }
+  onLabelMouseOut() {
+    this.setState({
+      markTarget: null
     });
   }
   render() {
@@ -79,17 +96,32 @@ class InnerLineContainer extends React.Component {
     let lines = null;
     if (lineInfo) {
       lines = [];
+      let charCount = 0;
       lineInfo.forEach((info, i) => {
         const annotationLines = [];
         info.annotations.forEach((labels, i) => {
           annotationLines.push(
-            <AnnotationLine key={i} labels={labels} />
+            <AnnotationLine key={i} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
+        const text = [];
+        for (let j = 0; j < info.text.length; j++) {
+          const style = {};
+          if (this.state.markTarget) {
+            if (this.state.markTarget.from <= charCount
+                && charCount <= this.state.markTarget.to) {
+              style.backgroundColor = currentTheme.markColor;
+            }
+          }
+          text.push(
+            <span key={j} style={style}>{info.text[j]}</span>
+          );
+          charCount++;
+        }
         lines.push(
           <div key={i}>
             {annotationLines}
-            <div style={{whiteSpace: "nowrap"}}>{info.text}</div>
+            <div style={{whiteSpace: "nowrap"}}>{text}</div>
           </div>
         );
       });

@@ -9,7 +9,7 @@ const lineDivStyle = {
 
 class AnnotationLine extends React.Component {
   render() {
-    const { labels } = this.props;
+    const { labels, onMouseOver, onMouseOut } = this.props;
     const boxes = [];
     labels.forEach((label, i) => {
       const styles = {
@@ -22,7 +22,19 @@ class AnnotationLine extends React.Component {
       };
       boxes.push(
         <div style={styles} key={i}>
-          <AnnotationLabel text={label.name} color={label.color} />
+          <AnnotationLabel
+              text={label.name}
+              color={label.color}
+              onMouseOver={() => {
+                  if (onMouseOver) {
+                    onMouseOver(label);
+                  }
+                }}
+              onMouseOut={() => {
+                  if (onMouseOut) {
+                    onMouseOut(label);
+                  }
+                }} />
         </div>
       );
     });

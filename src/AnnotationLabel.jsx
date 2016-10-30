@@ -3,7 +3,7 @@ import currentTheme from "./Theme";
 
 class AnnotationLabel extends React.Component {
   render() {
-    const { text, color } = this.props;
+    const { text, color, onMouseOver, onMouseOut } = this.props;
     return (
       <div style={{
         position: "relative",
@@ -18,8 +18,9 @@ class AnnotationLabel extends React.Component {
           borderRadius: 3,
           transform: "translateX(-50%)",
           color: currentTheme.labelColor,
-          padding: currentTheme.labelPadding
-        }}>{text}</span>
+          padding: currentTheme.labelPadding,
+          cursor: "pointer"
+        }} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{text}</span>
       </div>
     );
   }

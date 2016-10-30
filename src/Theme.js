@@ -8,7 +8,8 @@ const defaultTheme = {
   linePadding: "3px 5px",
   labelColor: "black",
   labelPadding: "2px 3px",
-  labelBorder: "solid 1px gray"
+  labelBorder: "solid 1px gray",
+  markColor: "#ffe4e1"
 };
 
 const currentTheme = JSON.parse(JSON.stringify(defaultTheme));
