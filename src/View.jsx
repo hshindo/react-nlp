@@ -5,6 +5,9 @@ import currentTheme, {setTheme} from "./Theme";
 class View extends React.Component {
   render() {
     const { data, linum, colors, types, lineBreak, theme } = this.props;
+    if (!data) {
+      return null;
+    }
     if (theme) {
       setTheme(theme);
     }
@@ -16,7 +19,7 @@ class View extends React.Component {
         bgColor = currentTheme.stripeColor[i % 2];
       }
       lines.push(
-        <Line key={i} text={line.text} annotations={line.annos} colors={colors} types={types} linum={num} lineBreak={lineBreak == null ? true : false} bgColor={bgColor} />
+        <Line key={i} text={line.text} annotations={line.anno} colors={colors} types={types} linum={num} lineBreak={lineBreak == null ? true : false} bgColor={bgColor} />
       );
     });
     return (
