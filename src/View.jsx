@@ -4,7 +4,7 @@ import currentTheme, {setTheme} from "./Theme";
 
 class View extends React.Component {
   render() {
-    const { data, linum, colors, types, lineBreak, theme, keepSpaces } = this.props;
+    const { data, linum, colors, types, lineBreak, theme, keepWhiteSpaces } = this.props;
     if (!data) {
       return null;
     }
@@ -27,7 +27,7 @@ class View extends React.Component {
               linum={num}
               lineBreak={lineBreak == null ? true : false}
               bgColor={bgColor}
-              keepSpaces={!!keepSpaces}
+              keepWhiteSpaces={!!keepWhiteSpaces}
         />
       );
     });

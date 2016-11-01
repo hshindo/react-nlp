@@ -20,13 +20,13 @@ class InnerLineContainer extends React.Component {
     this.state = {
       lineInfo: null,
       markTarget: null,
-      keepSpaces: null
+      keepWhiteSpaces: null
     };
   }
   componentDidMount() {
     this.props.dataHandler.handle(this.onData.bind(this));
   }
-  onData(data, annotations, colors, types, keepSpaces) {
+  onData(data, annotations, colors, types, keepWhiteSpaces) {
     const result = [];
     data.forEach(d => {
       if (!result[d.line]) {
@@ -77,7 +77,7 @@ class InnerLineContainer extends React.Component {
     });
     this.setState({
       lineInfo: result,
-      keepSpaces: keepSpaces
+      keepWhiteSpaces: keepWhiteSpaces
     });
   }
   onLabelMouseOver(label) {
@@ -94,7 +94,7 @@ class InnerLineContainer extends React.Component {
     });
   }
   render() {
-    const {lineInfo, keepSpaces} = this.state;
+    const {lineInfo, keepWhiteSpaces} = this.state;
     let lines = null;
     if (lineInfo) {
       lines = [];
@@ -115,7 +115,7 @@ class InnerLineContainer extends React.Component {
               style.backgroundColor = currentTheme.markColor;
             }
           }
-          if (info.text[j] === " " && keepSpaces) {
+          if (info.text[j] === " " && keepWhiteSpaces) {
             style.whiteSpace = "pre";
           }
           text.push(

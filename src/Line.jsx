@@ -14,12 +14,12 @@ class Line extends React.Component {
   }
 
   onAnalysis(result) {
-    const { annotations, colors, types, keepSpaces} = this.props;
-    this.state.dataHandler.fire(result, annotations, colors, types, keepSpaces);
+    const { annotations, colors, types, keepWhiteSpaces} = this.props;
+    this.state.dataHandler.fire(result, annotations, colors, types, keepWhiteSpaces);
   }
 
   render() {
-    const { text, annotations, linum, colors, types, lineBreak, bgColor, keepSpaces } = this.props;
+    const { text, annotations, linum, colors, types, lineBreak, bgColor, keepWhiteSpaces } = this.props;
     let linumBox = null;
     let lineMarginLeft = 0;
     if (linum != null) {
@@ -35,7 +35,7 @@ class Line extends React.Component {
         {linumBox}
         <div style={{position: "relative", marginLeft: lineMarginLeft, padding: currentTheme.linePadding}}>
           <InnerLineContainer dataHandler={this.state.dataHandler} />
-          <LineAnalyzer text={text} lineBreak={lineBreak} keepSpaces={keepSpaces} onAnalysis={this.onAnalysis.bind(this)} />
+          <LineAnalyzer text={text} lineBreak={lineBreak} keepWhiteSpaces={keepWhiteSpaces} onAnalysis={this.onAnalysis.bind(this)} />
         </div>
       </div>
     );

@@ -54,12 +54,12 @@ class LineAnalyzer extends React.Component {
   }
 
   render() {
-    const { text, lineBreak, keepSpaces } = this.props;
+    const { text, lineBreak, keepWhiteSpaces } = this.props;
     const spans = [];
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
-      if (text[i] === " " && keepSpaces) {
+      if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
       spans.push(

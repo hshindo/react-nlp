@@ -34,7 +34,7 @@ render(
 | colors            | Object       | Yes            | -         | Color map for annotation labels                    |
 | linum             | boolean      | Yes            | `true`    | If true, show line numbers                         |
 | lineBreak         | boolean      | Yes            | `true`    | If true, enable line break                         |
-| keepSpaces        | boolean      | Yes            | `false`   | If true, show multiple consecutive whitespace      |
+| keepWhiteSpaces   | boolean      | Yes            | `false`   | If true, show multiple consecutive whitespace      |
 | theme             | Object       | Yes            | -         | Override the [defaultTheme](./src/Theme.js#L1-L13) |
 
 
