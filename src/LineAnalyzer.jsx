@@ -54,15 +54,19 @@ class LineAnalyzer extends React.Component {
   }
 
   render() {
-    const { text, lineBreak } = this.props;
+    const { text, lineBreak, keepSpaces } = this.props;
     const spans = [];
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
+      let spanStyles = {};
+      if (text[i] === " " && keepSpaces) {
+        spanStyles.whiteSpace = "pre";
+      }
       spans.push(
-        <span key={i} ref={i}>{text[i]}</span>
+        <span key={i} ref={i} style={spanStyles}>{text[i]}</span>
       );
     }
-    const styles = {
+    const containerStyles = {
       position: "absolute",
       visibility: "hidden",
       top: 0,
@@ -70,12 +74,12 @@ class LineAnalyzer extends React.Component {
       width: "100%"
     };
     if (lineBreak) {
-      styles.whiteSpace = "normal";
+      containerStyles.whiteSpace = "normal";
     } else {
-      styles.whiteSpace = "nowrap";
+      containerStyles.whiteSpace = "nowrap";
     }
     return (
-      <div ref="container" style={styles}>
+      <div ref="container" style={containerStyles}>
         {spans}
       </div>
     );
