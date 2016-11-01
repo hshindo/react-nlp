@@ -65,6 +65,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.serverMode = location.search.indexOf("server=yes") >= 0;
+    this.state = {};
     if (this.serverMode) {
       this.isOpen = false;
       this.connection = new WebSocket("ws://jukainlp.hshindo.com");
@@ -73,14 +74,13 @@ class App extends Component {
         console.log("websocket open");
       };
       this.connection.onmessage = this.onMessage.bind(this);
-      this.state = {
-        text: ""
-      };
+      this.state.text = "";
     } else {
-      this.state = {
-        text: testData[0].text + "\n" + testData[1].text
-      };
+      this.state.text = testData[0].text + "\n" + testData[1].text;
     }
+    this.state.linumChecked = true;
+    this.state.lineBreakChecked = true;
+    this.state.keepWSChecked = false;
   }
   onMessage(ev) {
     this.setState({
@@ -94,6 +94,15 @@ class App extends Component {
     this.setState({
       text: newValue
     });
+  }
+  handleLinumCheckChange(event) {
+    this.setState({linumChecked: event.target.checked});
+  }
+  handleLineBreakCheckChange(event) {
+    this.setState({lineBreakChecked: event.target.checked});
+  }
+  handleKeepWSCheckChange(event) {
+    this.setState({keepWSChecked: event.target.checked});
   }
   render() {
     let data = null;
@@ -137,6 +146,17 @@ class App extends Component {
     }
     return (
       <div>
+        <div style={{backgroundColor: "#3f3f3f", color: "white"}}>
+          <label>
+            <input type="checkbox" onChange={this.handleLinumCheckChange.bind(this)} checked={this.state.linumChecked} /> show line number
+          </label>
+          <label style={{marginLeft: 10}}>
+            <input type="checkbox" onChange={this.handleLineBreakCheckChange.bind(this)} checked={this.state.lineBreakChecked} /> enable line break
+          </label>
+          <label style={{marginLeft: 10}}>
+            <input type="checkbox" onChange={this.handleKeepWSCheckChange.bind(this)} checked={this.state.keepWSChecked} /> keep white spaces
+          </label>
+        </div>
         <div style={{float: "left", width: "50%"}}>
           <AceEditor
               width="100%"
@@ -152,9 +172,11 @@ class App extends Component {
         </div>
         <div style={{float: "left", width: "50%"}}>
           <View data={data}
-                linum={true}
                 types={["wiki", "ne", "pos"]}
                 colors={colors}
+                linum={this.state.linumChecked}
+                lineBreak={this.state.lineBreakChecked}
+                keepWhiteSpaces={this.state.keepWSChecked}
           />
         </div>
       </div>
