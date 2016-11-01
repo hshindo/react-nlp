@@ -26,7 +26,7 @@ class LineAnalyzer extends React.Component {
       if (refId == 0) {
         currentLineTop = rect.top;
       }
-      if (lineBreak && currentLineTop !== rect.top) {
+      if (lineBreak && currentLineTop < rect.top) {
         currentLineTop = rect.top;
         currentLine++;
         prevXWidth = null;
