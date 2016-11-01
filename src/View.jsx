@@ -25,7 +25,7 @@ class View extends React.Component {
               colors={colors}
               types={types}
               linum={num}
-              lineBreak={lineBreak == null ? true : false}
+              lineBreak={lineBreak == null ? true : lineBreak}
               bgColor={bgColor}
               keepWhiteSpaces={!!keepWhiteSpaces}
         />
