@@ -1,3 +1,1 @@
-import View from './View.jsx';
-
-export default View;
+module.exports = require('./View.jsx');
