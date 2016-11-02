@@ -1,5 +1,5 @@
 import React from 'react';
-import View from './../../../src/View.jsx';
+import {View} from './../../../src';
 
 class Index extends React.Component {
 
