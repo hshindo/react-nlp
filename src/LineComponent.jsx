@@ -1,5 +1,5 @@
 import React from 'react';
-import Word from './WordComponent.jsx';
+import Word from './WordComponent';
 
 
 class LineComponent extends React.Component {

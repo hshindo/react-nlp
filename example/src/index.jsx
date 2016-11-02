@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./containers/Index.jsx";
+import App from "./containers/Index";
 
 ReactDOM.render(
     <App />,

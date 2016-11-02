@@ -1,4 +1,4 @@
-import ConfigBgColor from './ConfigBgColor.jsx';
+import ConfigBgColor from './ConfigBgColor';
 
 class SentenceBuilder {
     constructor(configBgColors) {
