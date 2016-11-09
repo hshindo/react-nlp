@@ -91,12 +91,6 @@
     height: calc(100% - 64px) !important;
 }
 
-.ace-editor-wrapper {
-    display: flex;
-    flex-flow: row;
-    height: 100%;
-}
-
 .item-translate:nth-child(odd) {
     background-color: #ffffff;
 }
