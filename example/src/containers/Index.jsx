@@ -41,8 +41,8 @@ class Index extends React.Component {
                     ja  : true,
                     cn  : true,
                     pos : true,
-                    ne  : false,
-                    wiki: false
+                    ne  : true,
+                    wiki: true
                 }}/>
             </div>
         )

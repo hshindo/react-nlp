@@ -52,7 +52,7 @@ class WordComponent extends React.Component {
             let mouseOverPos = this.mouseOverPos.bind(this, index);
             let mouseOutPos  = this.mouseOutPos.bind(this, index);
 
-            if (item.pos) {
+            if (item.pos && this.props.settings.pos) {
                 renderPos =
                     <div className="cat cursor-pointer"
                          onMouseOver={mouseOverPos}
@@ -69,7 +69,7 @@ class WordComponent extends React.Component {
         });
 
         let renderNe = '';
-        if (this.state.data.ne) {
+        if (this.state.data.ne && this.props.settings.ne) {
             renderNe = <div className="word-ne cursor-pointer"
                             onMouseOver={this.mouseOverNe}
                             onMouseOut={this.mouseOutNe}
@@ -78,15 +78,19 @@ class WordComponent extends React.Component {
             </div>;
         }
 
+        let renderWiki = '';
+        if(this.state.data.wiki && this.props.settings.wiki) {
+            renderWiki = <div>
+                {this.state.data.wiki}
+            </div>;
+        }
+
         return (
             <div className="word">
                 <div className="padding-word-wrapper">
                     <div className="padding-word">
                         {renderNe}
-                        <div>
-                            {this.state.data.wiki}
-                        </div>
-
+                        {renderWiki}
                     </div>
                 </div>
                 {renderForm}
