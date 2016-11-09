@@ -1,7 +1,7 @@
 {
   "name": "react-nlp",
   "version": "0.0.1",
-  "description": "",
+  "description": "Visualization of Natural Language Processing for React",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
