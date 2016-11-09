@@ -3,7 +3,6 @@ import Line from "./LineComponent";
 import ConfigBgColor from './ConfigBgColor';
 import SentenceBuilder from './SentenceBuilder';
 
-
 class View extends React.Component {
     constructor(props) {
         super(props);

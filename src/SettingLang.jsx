@@ -1,4 +1,5 @@
 import React from 'react';
+import Styles from './Styles';
 
 class SettingLang extends React.Component {
 
@@ -8,11 +9,11 @@ class SettingLang extends React.Component {
 
     render() {
         return (
-            <div className={this.props.display ? 'display-flex' : 'hide'}>
-                <div className="item-count text-right padding-top-bottom">
+            <div style={this.props.display ? Styles.displayFlex : Styles.hide}>
+                <div style={Object.assign(Styles.itemCount, Styles.textRight, Styles.paddingTopBottom)}>
                     {this.props.lang}
                 </div>
-                <div className="border-left text-result padding-top-bottom">
+                <div style={Object.assign(Styles.borderLeft, Styles.textResult, Styles.paddingTopBottom)}>
                     {this.props.text}
                 </div>
             </div>

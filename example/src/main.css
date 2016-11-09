@@ -53,3 +53,8 @@ html,body,div[data-reactroot]{
     flex-flow: row;
     height: 1000px!important;
 }
+
+.line {
+    overflow: auto;
+    margin-bottom: 88px;
+}

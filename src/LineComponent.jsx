@@ -1,6 +1,7 @@
 import React from 'react';
 import Word from './WordComponent';
 import SettingLang from './SettingLang';
+import Styles from './Styles';
 
 class LineComponent extends React.Component {
 
@@ -14,13 +15,13 @@ class LineComponent extends React.Component {
             return <Word settings={this.props.settings} key={index} index={index} data={item}/>
         });
         return (
-            <div className="item-translate">
-                <div style={{alignItems: 'flex-end', display: 'flex'}}>
-                    <div className="item-count text-right padding-top-bottom">
+            <div  style={Styles.itemTranslate}>
+                <div style={Styles.displayFlex}>
+                    <div style={Object.assign(Styles.itemCount, Styles.textRight, Styles.paddingTopBottom)}>
                         {this.props.index + 1}
                     </div>
-                    <div className="border-left text-result padding-top-bottom">
-                        <div className="line-word">
+                    <div style={Object.assign(Styles.borderLeft, Styles.textResult, Styles.paddingTopBottom)}>
+                        <div style={Styles.lineWord}>
                             {renderWord}
                         </div>
                     </div>

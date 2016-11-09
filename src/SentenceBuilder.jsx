@@ -75,7 +75,7 @@ class SentenceBuilder {
             lst.push({
                 text : text,
                 text_ja: 'JA',
-                text_cn: 'EN',
+                text_cn: 'CN',
                 items: listItem
             })
         });

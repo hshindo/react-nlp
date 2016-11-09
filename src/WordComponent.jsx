@@ -1,4 +1,5 @@
 import React from 'react';
+import Styles from './Styles';
 
 class WordComponent extends React.Component {
 
@@ -58,15 +59,15 @@ class WordComponent extends React.Component {
 
             if (item.pos && this.props.settings.pos) {
                 renderPos =
-                    <div className="cat cursor-pointer"
-                         onMouseOver={mouseOverPos}
-                         onMouseOut={mouseOutPos} style={{backgroundColor: item.bgColorPos}}>
+                    <div onMouseOver={mouseOverPos}
+                         onMouseOut={mouseOutPos}
+                         style={Object.assign({backgroundColor: item.bgColorPos}, Styles.cat, Styles.cursorPointer)}>
                         {item.pos}
                     </div>
             }
-            return <div key={index} className="item-cat">
+            return <div key={index} style={Styles.itemCat} className="item-cat">
                 {renderPos}
-                <div className="form" style={{backgroundColor: item.bgColorForm}}>
+                <div style={Object.assign({backgroundColor: item.bgColorForm}, Styles.form)}>
                     {item.form}
                 </div>
             </div>
@@ -74,10 +75,9 @@ class WordComponent extends React.Component {
 
         let renderNe = '';
         if (this.state.data.ne && this.props.settings.ne) {
-            renderNe = <div className="word-ne cursor-pointer"
-                            onMouseOver={this.mouseOverNe}
+            renderNe = <div onMouseOver={this.mouseOverNe}
                             onMouseOut={this.mouseOutNe}
-                            style={{backgroundColor: this.state.data.bgColorNe}}>
+                            style={Object.assign({backgroundColor: this.state.data.bgColorNe}, Styles.wordNe, Styles.cursorPointer)}>
                 {this.state.data.ne}
             </div>;
         }
@@ -90,9 +90,9 @@ class WordComponent extends React.Component {
         }
 
         return (
-            <div className="word">
-                <div className="padding-word-wrapper">
-                    <div className="padding-word">
+            <div style={Styles.word}>
+                <div style={Styles.paddingWordWrapper}>
+                    <div style={Styles.paddingWord}>
                         {renderNe}
                         {renderWiki}
                     </div>
