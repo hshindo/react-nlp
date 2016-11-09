@@ -12,8 +12,8 @@ class View extends React.Component {
 
     render() {
         let listSentence = this.sentenceBuilder.buildListSentence(this.props.data);
-        let renderLine   = listSentence.map((item, index) => {
-            return <Line key={index} index={index} line={item}/>
+        let renderLine = listSentence.map((item, index) => {
+            return <Line settings={this.props.settings} key={index} index={index} line={item}/>
         });
         return (
             <div>
@@ -24,7 +24,15 @@ class View extends React.Component {
 }
 
 View.defaultProps = {
-    data: [],
+    data          : [],
+    settings      : {
+        en  : true,
+        ja  : true,
+        cn  : true,
+        pos : true,
+        ne  : true,
+        wiki: true
+    },
     configBgColors: ConfigBgColor.getBgColors()
 };
 

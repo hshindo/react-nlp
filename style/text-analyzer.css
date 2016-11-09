@@ -2,6 +2,15 @@
     text-align: right;
 }
 
+.hide {
+    display: none;
+}
+
+.display-flex {
+    align-items: flex-end;
+    display: flex;
+}
+
 .line-word {
     display: -webkit-box;
     display: -moz-box;
@@ -46,7 +55,6 @@
 
 .item-cat {
     display: inline;
-    float: left;
     text-align: center;
     margin-top: 5px;
 }

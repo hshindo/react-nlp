@@ -12,14 +12,21 @@ class Index extends React.Component {
             <div>
                 <View data={[
                     {
-                        text: "Darth Vador, also",
+                        text: "Darth Vador, also known as Anakin Skywalker is a fictional character.",
                         anno: [
-                            ["wiki", 0, 10, "Darth_Vador"],
-                            ["entity", 0, 10, "PERSON"],
-                            ["pos", 0, 4, "NNP"],
-                            ["pos", 6, 10, "NNP"],
-                            ["pos", 11, 11, ","],
-                            ["pos", 13, 17, "RB"]
+                            ["pos", 0, 4, "RB"],
+                            ["pos", 6, 11, "PRP__DOLLAR__"],
+                            ["pos", 13, 16, "EX"],
+                            ["pos", 24, 25, "WDT"],
+                            ["pos", 27, 32, "IN"],
+                            ["entity", 27, 32, "PERSON"],
+                            ["pos", 34, 42, "CC"],
+                            ["pos", 44, 45, "CD"],
+                            ["pos", 47, 47, "PRP"],
+                            ["entity", 47, 47, "PERSON"],
+                            ["pos", 49, 57, "VBZ"],
+                            ["pos", 59, 68, "WDT"],
+                            ["entity", 59, 68, "DATE"]
                         ]
                     },
                     {
@@ -29,13 +36,13 @@ class Index extends React.Component {
                             ["pos", 3, 4, "NNP"]
                         ]
                     }
-                ]} settingDisplay={{
+                ]} settings={{
                     en  : true,
                     ja  : true,
                     cn  : true,
                     pos : true,
-                    ne  : true,
-                    wiki: true
+                    ne  : false,
+                    wiki: false
                 }}/>
             </div>
         )

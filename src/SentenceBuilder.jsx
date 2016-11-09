@@ -24,7 +24,7 @@ class SentenceBuilder {
                     end: anno[2]
                 };
             });
-
+            anno.reverse();
             let listItem = [];
             let start = null,
                 end = null;
@@ -65,12 +65,17 @@ class SentenceBuilder {
                 } else {
                     listItem.push(item);
                     item = {words: [anno]};
+
                 }
             });
-
-            listItem.push(item);
+            if(item.words.length > 0) {
+                listItem.push(item);
+            }
+            listItem.reverse();
             lst.push({
                 text : text,
+                text_ja: 'JA',
+                text_cn: 'EN',
                 items: listItem
             })
         });
