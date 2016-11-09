@@ -88,12 +88,19 @@ const Styles = {
         float       : 'left',
     },
 
-    textResult: {
+    textResult     : {
         paddingLeft : '10px',
         paddingRight: '10px',
         width       : 'calc(100% - 70px)',
         float       : 'left'
+    },
+    itemTranslateBg: {
+        backgroundColor: '#fff'
+    },
+    itemTranslateBgGray: {
+        backgroundColor: '#EEEEEE'
     }
+
 };
 
 export default Styles;

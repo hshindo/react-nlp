@@ -15,7 +15,8 @@ class LineComponent extends React.Component {
             return <Word settings={this.props.settings} key={index} index={index} data={item}/>
         });
         return (
-            <div  style={Styles.itemTranslate}>
+            <div
+                style={(this.props.index % 2) === 0 ? Object.assign(Styles.itemTranslate, Styles.itemTranslateBg) : Object.assign(Styles.itemTranslate, Styles.itemTranslateBgGray)}>
                 <div style={Styles.displayFlex}>
                     <div style={Object.assign(Styles.itemCount, Styles.textRight, Styles.paddingTopBottom)}>
                         {this.props.index + 1}
