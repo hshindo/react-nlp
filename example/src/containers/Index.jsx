@@ -7,6 +7,8 @@ import AppMenuBar from './AppMenuBar';
 
 import AceEditor from 'react-ace';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import 'brace/mode/markdown';
+import 'brace/theme/github';
 
 injectTapEventPlugin();
 
