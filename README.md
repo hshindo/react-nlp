@@ -5,7 +5,7 @@ Annotate text components built with React.
 ## Installation
 
 ```
-npm install --save https://github.com/hshindo/react-nlp.git
+npm install react-nlp
 ```
 
 ## Usage
