@@ -56,5 +56,5 @@ html,body,div[data-reactroot]{
 
 .line {
     overflow: auto;
-    margin-bottom: 88px;
+    padding-bottom: 90px;
 }
