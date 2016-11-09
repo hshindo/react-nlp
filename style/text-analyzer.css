@@ -24,6 +24,7 @@
 .word {
     display: inline;
     float: left;
+    margin: 0 2px;
     text-align: center;
 }
 

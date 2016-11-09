@@ -79,7 +79,6 @@ class SentenceBuilder {
                 items: listItem
             })
         });
-        console.log(lst);
         return lst;
     }
 

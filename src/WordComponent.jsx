@@ -19,7 +19,11 @@ class WordComponent extends React.Component {
         this.setState({data: this.props.data});
     }
 
-    mouseOverPos(index) {
+    componentWillReceiveProps(nextProps) {
+        this.setState({data: nextProps.data});
+    }
+
+        mouseOverPos(index) {
         this.state.data.words[index].bgColorForm = this.state.data.words[index].bgColorPos;
         this.setState({data: this.state.data})
     }
