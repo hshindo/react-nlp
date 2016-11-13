@@ -1,39 +1,48 @@
 import React from "react";
-import Line from "./LineComponent";
-import ConfigBgColor from './ConfigBgColor';
-import SentenceBuilder from './SentenceBuilder';
+import Line from "./Line";
+import currentTheme, {setTheme} from "./Theme";
 
 class View extends React.Component {
-    constructor(props) {
-        super(props);
-        this.sentenceBuilder = new SentenceBuilder(this.props.configBgColors);
+  render() {
+    const { data, linum, colors, types, lineBreak, theme, keepWhiteSpaces } = this.props;
+    if (!data) {
+      return null;
     }
-
-    render() {
-        let listSentence = this.sentenceBuilder.buildListSentence(this.props.data);
-        let renderLine = listSentence.map((item, index) => {
-            return <Line settings={this.props.settings} key={index} index={index} line={item}/>
-        });
-        return (
-            <div>
-                {renderLine}
-            </div>
-        );
+    if (theme) {
+      setTheme(theme);
     }
+    const lines = [];
+    data.forEach((line, i) => {
+      let num = linum ? i + 1 : null;
+      let bgColor = null;
+      if (currentTheme.stripe) {
+        bgColor = currentTheme.stripeColor[i % 2];
+      }
+      lines.push(
+        <Line key={i}
+              text={line.text}
+              annotations={line.anno}
+              colors={colors}
+              types={types}
+              linum={num}
+              lineBreak={lineBreak == null ? true : lineBreak}
+              bgColor={bgColor}
+              keepWhiteSpaces={!!keepWhiteSpaces}
+        />
+      );
+    });
+    return (
+      <div style={{
+        fontSize: currentTheme.fontSize,
+        color: currentTheme.color,
+        borderTop: currentTheme.border,
+        borderLeft: currentTheme.border,
+        borderRight: currentTheme.border
+      }}>
+        {lines}
+      </div>
+    );
+  }
 }
-
-View.defaultProps = {
-    data          : [],
-    settings      : {
-        en  : true,
-        ja  : true,
-        cn  : true,
-        pos : true,
-        ne  : true,
-        wiki: true
-    },
-    configBgColors: ConfigBgColor.getBgColors()
-};
-
 
 export default View;
