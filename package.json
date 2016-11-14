@@ -44,8 +44,6 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "css-element-queries": "^0.3.2",
-    "material-ui": "^0.16.1",
-    "react-tap-event-plugin": "^1.0.0"
+    "css-element-queries": "^0.3.2"
   }
 }
