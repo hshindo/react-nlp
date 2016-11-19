@@ -6,3 +6,4 @@ coverage/
 .vscode
 lib
 example/public
+demo/public

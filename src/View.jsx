@@ -28,17 +28,21 @@ class View extends React.Component {
               lineBreak={lineBreak == null ? true : lineBreak}
               bgColor={bgColor}
               keepWhiteSpaces={!!keepWhiteSpaces}
+              labelFontSize={currentTheme.labelFontSize}
         />
       );
     });
+    const style = {
+      fontSize: currentTheme.fontSize,
+      color: currentTheme.color
+    };
+    if (currentTheme.borderStyle === 1) {
+      style.borderTop = currentTheme.border;
+      style.borderLeft = currentTheme.border,
+      style.borderRight = currentTheme.border
+    }
     return (
-      <div style={{
-        fontSize: currentTheme.fontSize,
-        color: currentTheme.color,
-        borderTop: currentTheme.border,
-        borderLeft: currentTheme.border,
-        borderRight: currentTheme.border
-      }}>
+      <div style={style}>
         {lines}
       </div>
     );

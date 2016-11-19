@@ -1,4 +1,5 @@
 import React from "react";
+import Color from "color";
 import AnnotationLine from "./AnnotationLine";
 import currentTheme from "./Theme";
 
@@ -84,7 +85,8 @@ class InnerLineContainer extends React.Component {
     this.setState({
       markTarget: {
         from: label.from,
-        to: label.to
+        to: label.to,
+        color: label.color
       }
     });
   }
@@ -94,7 +96,7 @@ class InnerLineContainer extends React.Component {
     });
   }
   render() {
-    const {lineInfo, keepWhiteSpaces} = this.state;
+    const {lineInfo, keepWhiteSpaces, fontSize} = this.state;
     let lines = null;
     if (lineInfo) {
       lines = [];
@@ -103,16 +105,16 @@ class InnerLineContainer extends React.Component {
         const annotationLines = [];
         info.annotations.forEach((labels, i) => {
           annotationLines.push(
-            <AnnotationLine key={i} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
+            <AnnotationLine key={i} fontSize={fontSize} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
         const text = [];
         for (let j = 0; j < info.text.length; j++) {
           const style = {};
           if (this.state.markTarget) {
-            if (this.state.markTarget.from <= charCount
-                && charCount <= this.state.markTarget.to) {
-              style.backgroundColor = currentTheme.markColor;
+            const target = this.state.markTarget;
+            if (target.from <= charCount && charCount <= target.to) {
+              style.backgroundColor = target.color ? Color(this.state.markTarget.color).clearer(0.5).rgbaString() : currentTheme.markColor;
             }
           }
           if (info.text[j] === " " && keepWhiteSpaces) {
