@@ -1,6 +1,6 @@
 {
   "name": "react-nlp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Visualization of Natural Language Processing for React",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,9 @@
     "build": "babel src -d lib",
     "lint": "eslint src",
     "build:example": "webpack --progress --colors --config example/webpack.config.js",
-    "start": "webpack-dev-server --hot --inline --progress --colors --config example/webpack.config.js"
+    "build:demo": "webpack --progress --colors --config demo/webpack.config.js",
+    "example": "webpack-dev-server --hot --inline --progress --colors --config example/webpack.config.js",
+    "demo": "webpack-dev-server --hot --inline --progress --colors --config demo/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -37,13 +39,16 @@
     "eslint-plugin-react": "^6.4.1",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.4",
+    "material-ui": "^0.16.1",
     "react-ace": "^3.6.1",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-tap-event-plugin": "^1.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "color": "^0.11.4",
     "css-element-queries": "^0.3.2"
   }
 }

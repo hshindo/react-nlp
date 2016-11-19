@@ -1,6 +1,6 @@
 # react-nlp
 
-Annotate text components built with React.
+Visualization of Natural Language Processing for React
 
 ## Installation
 
@@ -117,18 +117,31 @@ example:
 npm install
 npm install react react-dom
 npm run build
-npm start
+npm run example
 ```
 
 Then, access [http://localhost:8080/](http://localhost:8080/) in your browser.
 
 If enable `Server Mode`, access [http://localhost:8080/?server=yes](http://localhost:8080/?server=yes).
 
+
+## Run Demo App
+
+```
+npm install
+npm install react react-dom
+npm run build
+npm run demo
+```
+
+Then, access [http://localhost:8080/](http://localhost:8080/) in your browser.
+
 ## Dependencies
 
 * react
 * react-dom
 * css-element-queries
+* color
 
 ## License
 
