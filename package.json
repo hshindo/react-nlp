@@ -42,7 +42,7 @@
     "material-ui": "^0.16.1",
     "react-ace": "^3.6.1",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
