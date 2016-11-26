@@ -12,7 +12,8 @@ const defaultTheme = {
   labelColor: "black",
   labelPadding: "2px 3px",
   labelBorder: "solid 1px gray",
-  markColor: "#ffe4e1"
+  markColor: "#ffe4e1",
+  characterPadding: 0
 };
 
 const currentTheme = JSON.parse(JSON.stringify(defaultTheme));
