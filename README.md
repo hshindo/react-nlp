@@ -113,22 +113,22 @@ example:
 
 ### theme
 
-|     Property          |     Type      | Default                  | Description                         |
-|:----------------------|:--------------|:-------------------------|:------------------------------------|
-| fontSize              | string|number | `14`                     | text font size                      |
-| borderStyle           | number        | `1`                      | 0: none, 1: full, 2: simple         |
-| border                | string        | `"solid 1px #9a9a9a"`    | css border format                   |
-| color                 | string        | `"black"`                | text font color                     |
-| linumColor            | string        | `"#9a9a9a"`              | linum color                         |
-| stripe                | boolean       | `true`                   | enable/disable stripe               |
-| stripeColor           | Array         | `["#ffffff", "#f2f2f2"]` | stripe color                        |
-| linePadding           | string|number | `"3px 5px"`              | line padding                        |
-| annotationLinePadding | string|number | `"2px 3px"`              | annotation line padding             |
-| labelFontSize         | string|number | `"0.6em"`                | label font size                     |
-| labelColor            | string        | `"black"`                | label color                         |
-| labelPadding          | string        | `"2px 3px"`              | label padding                       |
-| labelBorder           | string        | `"solid 1px gray"`       | label border                        |
-| characterPadding      | string|number | `0`                      | character padding                   |
+|     Property          |     Type       | Default                  | Description                         |
+|:----------------------|:---------------|:-------------------------|:------------------------------------|
+| fontSize              | string\|number | `14`                     | text font size                      |
+| borderStyle           | number         | `1`                      | 0: none, 1: full, 2: simple         |
+| border                | string         | `"solid 1px #9a9a9a"`    | css border format                   |
+| color                 | string         | `"black"`                | text font color                     |
+| linumColor            | string         | `"#9a9a9a"`              | linum color                         |
+| stripe                | boolean        | `true`                   | enable/disable stripe               |
+| stripeColor           | Array          | `["#ffffff", "#f2f2f2"]` | stripe color                        |
+| linePadding           | string\|number | `"3px 5px"`              | line padding                        |
+| annotationLinePadding | string\|number | `"2px 3px"`              | annotation line padding             |
+| labelFontSize         | string\|number | `"0.6em"`                | label font size                     |
+| labelColor            | string         | `"black"`                | label color                         |
+| labelPadding          | string         | `"2px 3px"`              | label padding                       |
+| labelBorder           | string         | `"solid 1px gray"`       | label border                        |
+| characterPadding      | string\|number | `0`                      | character padding                   |
 
 ## Run Example
 
