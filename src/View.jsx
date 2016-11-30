@@ -28,7 +28,6 @@ class View extends React.Component {
               lineBreak={lineBreak == null ? true : lineBreak}
               bgColor={bgColor}
               keepWhiteSpaces={!!keepWhiteSpaces}
-              labelFontSize={currentTheme.labelFontSize}
         />
       );
     });
