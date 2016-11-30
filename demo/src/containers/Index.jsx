@@ -110,7 +110,8 @@ class Index extends React.Component {
                     fontSize: 18,
                     labelFontSize: "1em",
                     linePadding: "10px",
-                    borderStyle: 2
+                    borderStyle: 2,
+                    characterPadding: "0 4px"
                   }}
             />
           </div>

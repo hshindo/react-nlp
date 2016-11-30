@@ -15,7 +15,8 @@ class AnnotationLabel extends React.Component {
         color: currentTheme.labelColor,
         padding: currentTheme.labelPadding,
         whiteSpace: "nowrap",
-        cursor: "pointer"
+        cursor: "pointer",
+        fontSize: currentTheme.labelFontSize
       }} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{text}</span>
     );
   }
@@ -32,7 +33,8 @@ export class AnnotationLabelLayoutOnly extends React.Component {
         borderRadius: 3,
         padding: currentTheme.labelPadding,
         visibility: "hidden",
-        display: "block"
+        display: "block",
+        fontSize: currentTheme.labelFontSize
       }}>_DUMMY_</span>
     );
   }

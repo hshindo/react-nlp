@@ -1,5 +1,6 @@
 import React from "react";
 import ResizeSensor from "css-element-queries/src/ResizeSensor";
+import currentTheme from "./Theme";
 
 Number.isNaN = Number.isNaN || function(value) {
   return typeof value === "number" && value !== value;
@@ -59,6 +60,7 @@ class LineAnalyzer extends React.Component {
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
+      spanStyles.padding = currentTheme.characterPadding;
       if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
