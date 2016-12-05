@@ -128,7 +128,7 @@ example:
 | labelColor            | string         | `"black"`                | label color                         |
 | labelPadding          | string         | `"2px 3px"`              | label padding                       |
 | labelBorder           | string         | `"solid 1px gray"`       | label border                        |
-| characterPadding      | string\|number | `0`                      | character padding                   |
+| characterPadding      | string\|number | `0`                      | character left-right padding        |
 
 ## Run Example
 

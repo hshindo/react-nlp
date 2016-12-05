@@ -60,7 +60,8 @@ class LineAnalyzer extends React.Component {
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
-      spanStyles.padding = currentTheme.characterPadding;
+      spanStyles.paddingLeft = currentTheme.characterPadding;
+      spanStyles.paddingRight = currentTheme.characterPadding;
       if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
