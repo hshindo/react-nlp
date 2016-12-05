@@ -111,7 +111,8 @@ class InnerLineContainer extends React.Component {
         const text = [];
         for (let j = 0; j < info.text.length; j++) {
           const style = {};
-          style.padding = currentTheme.characterPadding;
+          style.paddingLeft = currentTheme.characterPadding;
+          style.paddingRight = currentTheme.characterPadding;
           if (this.state.markTarget) {
             const target = this.state.markTarget;
             if (target.from <= charCount && charCount <= target.to) {
