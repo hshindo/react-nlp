@@ -35,6 +35,9 @@ class FrontCanvas extends BaseComponent {
       update: false
     };
   }
+  componentDidUpdate() {
+    this.domNode = ReactDOM.findDOMNode(this);
+  }
   handleUpdate() {
     this.setState({
       update: true
@@ -58,7 +61,6 @@ class FrontCanvas extends BaseComponent {
       const label = relation[5];
       const t1 = document.getElementById(t1Id);
       const t2 = document.getElementById(t2Id);
-
       if (t1 && t2) {
         const t1Rect = t1.getBoundingClientRect();
         const t2Rect = t2.getBoundingClientRect();

@@ -26,7 +26,7 @@ class SVGRelationConnector extends BaseComponent {
     const { markerType, markerId, start, end, label } = this.props;
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
-    console.log(start, end, cp);
+
     let dAttr = "M" + (start.x|0) + "," +(start.y|0) + " Q " + (cp.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (end.y|0);
     let markerStart = null;
     let markerEnd = null;
