@@ -98,7 +98,7 @@ The `relations` is a list of relation of annotations.
 
 |     Property      |     Type     |    Optional    | Description                         |
 |:------------------|:-------------|:---------------|:------------------------------------|
-| realations[][0]   | string       | No             | Type of relation(`tt`: tail-tail relation (-), `ht`: head-tail relation (←), `th`: tail-head relation (→), `hh`: head-head relation (↔) |
+| realations[][0]   | string       | No             | Type of relation<br>`tt`: tail-tail relation (-)<br>`ht`: head-tail relation (←)<br>`th`: tail-head relation (→)<br>`hh`: head-head relation (↔) |
 | realations[][1]   | number       | No             | First sentence index                |
 | realations[][2]   | number       | No             | First span index                    |
 | realations[][3]   | number       | No             | Second sentence index               |
