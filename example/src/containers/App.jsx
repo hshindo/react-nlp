@@ -3,6 +3,13 @@ import AceEditor from "react-ace";
 
 import { View } from "../../../lib";
 
+const relations = [
+  ["hh", 0, 0, 0, 1, "rel_label1"],
+  ["ht", 0, 0, 0, 2, "rel_label2"],
+  ["tt", 0, 0, 1, 0, "rel_label3"],
+  ["hh", 0, 0, 1, 7, "rel_label4"]
+];
+
 const testData = [
   {
     text: "Darth Vador, also known as Anakin Skywalker is a fictional character.",
@@ -172,11 +179,15 @@ class App extends Component {
         </div>
         <div style={{float: "left", width: "50%"}}>
           <View data={data}
+                relations={relations}
                 types={["wiki", "ne", "pos"]}
                 colors={colors}
                 linum={this.state.linumChecked}
                 lineBreak={this.state.lineBreakChecked}
                 keepWhiteSpaces={this.state.keepWSChecked}
+                theme={{
+                    
+                }}
           />
         </div>
       </div>

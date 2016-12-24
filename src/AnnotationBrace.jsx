@@ -1,6 +1,7 @@
 import React from "react";
+import BaseComponent from "./BaseComponent";
 
-class AnnotationBrace extends React.Component {
+class AnnotationBrace extends BaseComponent {
   render() {
     const bodyStyle = {
       position: "relative",

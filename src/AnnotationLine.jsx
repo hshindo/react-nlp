@@ -1,14 +1,9 @@
 import React from "react";
+import BaseComponent from "./BaseComponent";
 
 import AnnotationLabel, {AnnotationLabelLayoutOnly} from "./AnnotationLabel";
-import currentTheme from "./Theme";
 
-const lineDivStyle = {
-  position: "relative",
-  padding: currentTheme.annotationLinePadding
-};
-
-class AnnotationLine extends React.Component {
+class AnnotationLine extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +37,7 @@ class AnnotationLine extends React.Component {
       boxes.push(
         <div style={styles} key={i}>
           <AnnotationLabel
+              id={label.id}
               text={label.name}
               color={label.color}
               onMouseOver={() => {
@@ -59,6 +55,10 @@ class AnnotationLine extends React.Component {
         </div>
       );
     });
+    const lineDivStyle = {
+        position: "relative",
+        padding: this.context.theme.annotationLinePadding
+    };
     return (
       <div style={lineDivStyle}>
         <div style={{height: "100%"}}>
