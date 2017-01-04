@@ -6,22 +6,27 @@ const defaultTheme = {
   linumColor: "#9a9a9a",
   stripe: true,
   stripeColor: ["#ffffff", "#f2f2f2"],
-  linePadding: "3px 5px",
+  linePadding: "15px 5px",
   annotationLinePadding: "2px 3px",
   labelFontSize: "0.6em",
   labelColor: "black",
   labelPadding: "2px 3px",
   labelBorder: "solid 1px gray",
   markColor: "#ffe4e1",
-  characterPadding: 0
+  characterPadding: 0,
+  relationColor: "black",
+  relationLabelFontSize: "12px",
+  relationLabelPadding: "2px 3px",
+  relationLabelBorder: "solid 1px gray",
+  relationLabelColor: "black",
+  relationLabelBgColor: "lightblue",
+  relationLabelBorderRadius: "0px"
 };
 
-const currentTheme = JSON.parse(JSON.stringify(defaultTheme));
-
-export function setTheme(theme) {
+export function assignTheme(theme) {
+  var result = JSON.parse(JSON.stringify(defaultTheme));
   Object.keys(theme).forEach(key => {
-    currentTheme[key] = theme[key];
+    result[key] = theme[key];
   });
+  return result;
 }
-
-export default currentTheme;

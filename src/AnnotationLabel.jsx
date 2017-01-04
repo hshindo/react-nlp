@@ -1,23 +1,24 @@
 import React from "react";
-import currentTheme from "./Theme";
+import BaseComponent from "./BaseComponent";
 
-class AnnotationLabel extends React.Component {
+class AnnotationLabel extends BaseComponent {
   render() {
-    const { text, color, onMouseOver, onMouseOut } = this.props;
+    const { text, color, onMouseOver, onMouseOut, id } = this.props;
+    const { theme } = this.context;
     return (
       <span style={{
         position: "absolute",
         left: "50%",
         backgroundColor: color,
-        border: currentTheme.labelBorder,
+        border: theme.labelBorder,
         borderRadius: 3,
         transform: "translateX(-50%)",
-        color: currentTheme.labelColor,
-        padding: currentTheme.labelPadding,
+        color: theme.labelColor,
+        padding: theme.labelPadding,
         whiteSpace: "nowrap",
         cursor: "pointer",
-        fontSize: currentTheme.labelFontSize
-      }} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{text}</span>
+        fontSize: theme.labelFontSize
+      }} onMouseOver={onMouseOver} onMouseOut={onMouseOut} id={id}>{text}</span>
     );
   }
 }
@@ -25,16 +26,17 @@ class AnnotationLabel extends React.Component {
 /**
  * Use for height detection.
  */
-export class AnnotationLabelLayoutOnly extends React.Component {
+export class AnnotationLabelLayoutOnly extends BaseComponent {
   render() {
+    const { theme } = this.context;
     return (
       <span style={{
-        border: currentTheme.labelBorder,
+        border: theme.labelBorder,
         borderRadius: 3,
-        padding: currentTheme.labelPadding,
+        padding: theme.labelPadding,
         visibility: "hidden",
         display: "block",
-        fontSize: currentTheme.labelFontSize
+        fontSize: theme.labelFontSize
       }}>_DUMMY_</span>
     );
   }
