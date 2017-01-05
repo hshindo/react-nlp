@@ -102,7 +102,8 @@ class Index extends React.Component {
             />
           </div>
           <div className="col-xs-6 col-md-6">
-            <View data={this.state.data}
+            <View data={this.state.data.sentences}
+                  relations={this.state.data.relations}
                   linum={true}
                   types={this.state.types}
                   colors={this.colors}
@@ -111,8 +112,8 @@ class Index extends React.Component {
                     labelFontSize: "1em",
                     linePadding: "10px",
                     borderStyle: 2,
-                    characterPadding: "0 4px"
-                  }}
+                    characterPadding: "4px"
+                  }}b
             />
           </div>
         </div>

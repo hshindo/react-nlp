@@ -1,15 +1,15 @@
 import React from "react";
+import BaseComponent from "./BaseComponent";
 import ResizeSensor from "css-element-queries/src/ResizeSensor";
-import currentTheme from "./Theme";
 
 Number.isNaN = Number.isNaN || function(value) {
   return typeof value === "number" && value !== value;
 }
 
-class LineAnalyzer extends React.Component {
+class LineAnalyzer extends BaseComponent {
   notifyAnalysis() {
-    const { onAnalysis, lineBreak } = this.props;
-    const result = [];
+    const { onAnalysis, lineBreak, types, annotations, colors } = this.props;
+    let result = [];
     let prevXWidth = null;
     let currentLineTop = 0;
     let currentLine = 0;
@@ -56,12 +56,13 @@ class LineAnalyzer extends React.Component {
 
   render() {
     const { text, lineBreak, keepWhiteSpaces } = this.props;
+    const { theme } = this.context;
     const spans = [];
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
-      spanStyles.paddingLeft = currentTheme.characterPadding;
-      spanStyles.paddingRight = currentTheme.characterPadding;
+      spanStyles.paddingLeft = theme.characterPadding;
+      spanStyles.paddingRight = theme.characterPadding;
       if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
