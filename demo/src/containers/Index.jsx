@@ -109,10 +109,10 @@ class Index extends React.Component {
                   colors={this.colors}
                   theme={{
                     fontSize: 18,
-                    labelFontSize: "1em",
+                    labelFontSize: "12px",
                     linePadding: "10px",
                     borderStyle: 2,
-                    characterPadding: "4px"
+                    characterPadding: "0px"
                   }}b
             />
           </div>
