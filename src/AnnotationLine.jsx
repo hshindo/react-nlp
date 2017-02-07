@@ -31,7 +31,7 @@ class AnnotationLine extends BaseComponent {
         textAlign: "center",
         fontSize: fontSize,
         height: "100%",
-        top: 0,
+        top: 50,
         zIndex: this.state.target === i ? 1 : 0
       };
       boxes.push(
