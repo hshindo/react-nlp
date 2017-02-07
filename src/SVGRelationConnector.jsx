@@ -18,7 +18,7 @@ function detectCurvePoint(t1, t2) {
   if (yMargin < 5) {
     y -= 10;
   }
-  return {x: x, y: y};
+  return {x: x, y: y-(xMargin/5)};
 }
 
 class SVGRelationConnector extends BaseComponent {

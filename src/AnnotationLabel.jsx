@@ -11,7 +11,7 @@ class AnnotationLabel extends BaseComponent {
         left: "50%",
         backgroundColor: color,
         border: theme.labelBorder,
-        borderRadius: 3,
+        borderRadius: 0,
         transform: "translateX(-50%)",
         color: theme.labelColor,
         padding: theme.labelPadding,
@@ -32,7 +32,7 @@ export class AnnotationLabelLayoutOnly extends BaseComponent {
     return (
       <span style={{
         border: theme.labelBorder,
-        borderRadius: 3,
+        borderRadius: 0,
         padding: theme.labelPadding,
         visibility: "hidden",
         display: "block",
