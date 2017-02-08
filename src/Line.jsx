@@ -102,7 +102,6 @@ class Line extends BaseComponent {
       <div style={style}>
         {linumBox}
         <div style={{position: "relative", marginLeft: lineMarginLeft, padding: theme.linePadding}}>
-          <InnerLineContainer dataHandler={this.state.dataHandler} />
           <LineAnalyzer
               text={text}
               lineBreak={lineBreak}
@@ -112,6 +111,7 @@ class Line extends BaseComponent {
               keepWhiteSpaces={keepWhiteSpaces}
               onAnalysis={this.onAnalysis.bind(this)}
           />
+          <InnerLineContainer dataHandler={this.state.dataHandler} />
         </div>
       </div>
     );
