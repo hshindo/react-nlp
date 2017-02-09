@@ -73,11 +73,11 @@ class FrontCanvas extends BaseComponent {
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
-          y: t1Top - t1Rect.height
+          y: 60
         };
         const t2Pos = {
           x: t2Left + (t2Rect.width / 2),
-          y: t2Top - t2Rect.height
+          y: 60
         };
         connectors.push(
           <SVGRelationConnector markerType={relation[0]}

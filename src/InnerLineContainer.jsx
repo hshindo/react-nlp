@@ -70,9 +70,9 @@ class InnerLineContainer extends BaseComponent {
         }
         lines.push(
           <div key={i}>
-            <div style={{whiteSpace: "nowrap"}}>{text}</div>
             {annotationLines[1]}
             {annotationLines[0]}
+            <div style={{whiteSpace: "nowrap"}}>{text}</div>
           </div>
         );
       });
