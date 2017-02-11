@@ -18,7 +18,9 @@ function detectCurvePoint(t1, t2) {
   if (yMargin < 5) {
     y -= 10;
   }
-  return {x: x, y: y-(xMargin/5)};
+  
+  let y_res = Math.max((xMargin/3)+30, 40);
+  return {x: x, y: y-(y_res)};
 }
 
 class SVGRelationConnector extends BaseComponent {
@@ -27,7 +29,7 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
 
-    let dAttr = "M" + (start.x|0) + "," +(start.y|0) + " Q " + (cp.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (end.y|0);
+    let dAttr = "M" + (start.x|0) + "," +(start.y|0) + " C " + (start.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (end.y|0);
     let markerStart = null;
     let markerEnd = null;
     switch (markerType) {

@@ -58,6 +58,8 @@ class LineAnalyzer extends BaseComponent {
     const { text, lineBreak, keepWhiteSpaces } = this.props;
     const { theme } = this.context;
     const spans = [];
+    let word = [];
+    const words = [];
     let keyIdx = 0;
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
@@ -70,6 +72,20 @@ class LineAnalyzer extends BaseComponent {
         <span key={i} ref={i} style={spanStyles}>{text[i]}</span>
       );
     }
+    
+    let key_num = 0;
+    spans.forEach((char) => {
+      word.push(char);
+      if (char.props.children === " " || char.props.children === ".") {
+        words.push(
+          <div key={key_num}>{word}</div>
+        );
+        word = [];
+        key_num++;
+      }
+    });
+    console.log({words});
+    
     const containerStyles = {
       position: "absolute",
       visibility: "hidden",
