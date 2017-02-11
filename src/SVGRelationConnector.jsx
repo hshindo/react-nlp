@@ -19,7 +19,7 @@ function detectCurvePoint(t1, t2) {
     y -= 10;
   }
   
-  let y_res = Math.max((xMargin/3)+30, 40);
+  let y_res = Math.min((xMargin/3)+30, 90);
   return {x: x, y: y-(y_res)};
 }
 
