@@ -62,7 +62,6 @@ class View extends React.Component {
               types={types}
               linum={num}
               lineBreak={lineBreak == null ? true : lineBreak}
-              bgColor={bgColor}
               keepWhiteSpaces={!!keepWhiteSpaces}
               onAnnotationsAnalysis={(annotations) => {
                   this.handleLineAnnotationsAnalysis(i, data.length, annotations)
