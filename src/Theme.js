@@ -19,7 +19,7 @@ const defaultTheme = {
   relationLabelPadding: "0px 3px",
   relationLabelBorder: "solid 1px gray",
   relationLabelColor: "black",
-  relationLabelBgColor: "lightblue",
+  relationLabelBgColor: "white",
   relationLabelBorderRadius: "0px"
 };
 

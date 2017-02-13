@@ -61,7 +61,6 @@ class View extends React.Component {
               colors={colors}
               types={types}
               linum={num}
-              lineBreak={lineBreak == null ? true : lineBreak}
               keepWhiteSpaces={!!keepWhiteSpaces}
               onAnnotationsAnalysis={(annotations) => {
                   this.handleLineAnnotationsAnalysis(i, data.length, annotations)
@@ -72,7 +71,9 @@ class View extends React.Component {
     const style = {
       fontSize: this.theme.fontSize,
       color: this.theme.color,
-      position: "relative"
+      position: "relative",
+      overflowX: "scroll",
+      overflowY: "hidden"
     };
     if (this.theme.borderStyle === 1) {
       style.borderTop = this.theme.border;

@@ -11,16 +11,9 @@ function detectCurvePoint(t1, t2) {
 
   let x = minX + (xMargin / 2);
   let y = minY + (yMargin / 2);
-
-  if (xMargin < 5) {
-    x += 10;
-  }
-  if (yMargin < 5) {
-    y -= 10;
-  }
   
-  let y_res = Math.min((xMargin/3)+30, 80);
-  return {x: x, y: Math.floor((y - y_res)/15)*15};
+  let y_res = Math.min((xMargin/2), 100);
+  return {x: x, y: Math.floor((y - y_res)/10)*10};
 }
 
 class SVGRelationConnector extends BaseComponent {
@@ -28,8 +21,10 @@ class SVGRelationConnector extends BaseComponent {
     const { markerType, markerId, start, end, label } = this.props;
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
-
-    let dAttr = "M" + (start.x|0) + "," +(start.y|0) + " C " + (start.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (end.y|0);
+    
+    let pad = (start.x < end.x) ? 5 : -5;
+    let dAttr = "M" + (start.x|0) + "," + (start.y|0) + " L " + (start.x + pad|0) + "," + (cp.y|0) + " " + (end.x - pad|0) + "," + (cp.y|0) + " " + (end.x|0) + "," + (end.y|0);
+    
     let markerStart = null;
     let markerEnd = null;
     switch (markerType) {
@@ -50,7 +45,7 @@ class SVGRelationConnector extends BaseComponent {
     return (
       <g>
         <path d={dAttr} fill="none" stroke={this.context.theme.relationColor} strokeWidth="1" markerStart={markerStart} markerEnd={markerEnd} />
-        <SVGRelationLabel text={label} x={cp.x|0} y={cp.y|0} />
+        <SVGRelationLabel text={label} x={cp.x|0} y={cp.y-15|0} />
       </g>
     )
   }

@@ -24,11 +24,9 @@ export default class SVGRelationLabel extends BaseComponent {
     const { theme } = this.context;
     return (
       <foreignObject x={x - offsetX} y={y} ref="container">
-        <span ref="text" xmlns="http://www.w3.org/1999/xhtml" style={{
-          border: theme.relationLabelBorder,
+        <span className="relationLabel" ref="text" xmlns="http://www.w3.org/1999/xhtml" style={{
           padding: theme.relationLabelPadding,
           color: theme.relationLabelColor,
-          borderRadius: theme.relationLabelBorderRadius,
           backgroundColor: theme.relationLabelBgColor,
           fontSize: theme.relationLabelFontSize
         }}>
