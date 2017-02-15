@@ -12,6 +12,13 @@ function detectCurvePoint(t1, t2) {
   let x = minX + (xMargin / 2);
   let y = minY + (yMargin / 2);
   
+  if (xMargin < 5) {
+    x += 10;
+  }
+  if (yMargin < 5) {
+    y -= 10;
+  }
+
   let y_res = Math.min((xMargin/2), 100);
   return {x: x, y: Math.floor((y - y_res)/10)*10};
 }

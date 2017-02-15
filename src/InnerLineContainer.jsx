@@ -49,11 +49,40 @@ class InnerLineContainer extends BaseComponent {
             <AnnotationLine key={i} fontSize={fontSize} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
+        
+        // todo-01: refactor
+        let adj = [];
+        info.annotations.forEach((annotationLine) => {
+          annotationLine.forEach((annotation) => {
+            const from = annotation["from"];
+            const to = annotation["to"];
+            const name = annotation["name"];
+            if ((to - from + 1) <= name.length) {
+              adj.push([from, to, name.length])
+            }
+          });
+        });
+        
         const text = [];
         for (let j = 0; j < info.text.length; j++) {
           const style = {};
           style.paddingLeft = theme.characterPadding;
           style.paddingRight = theme.characterPadding;
+          
+          // todo-01: refactor
+          for (let k = 0; k < adj.length; k++) {
+            const from = adj[k][0];
+            const to = adj[k][1];
+            const len = adj[k][2];
+            if (j == from) {
+              style.paddingLeft = len+"px";
+            }
+            if (j == to) {
+              style.paddingRight = len+"px";
+            }
+          }
+          
+          
           if (this.state.markTarget) {
             const target = this.state.markTarget;
             if (target.from <= charCount && charCount <= target.to) {

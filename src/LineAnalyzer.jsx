@@ -55,10 +55,23 @@ class LineAnalyzer extends BaseComponent {
   }
 
   render() {
-    const { text, lineBreak, keepWhiteSpaces } = this.props;
+    const { text, lineBreak, keepWhiteSpaces, annotations } = this.props;
     const { theme } = this.context;
     const spans = [];
     let keyIdx = 0;
+    
+    // todo-01: refactor
+    let adj = [];
+    annotations.forEach((annotation) => {
+      const from = annotation[1];
+      const to = annotation[2];
+      const name = annotation[3];
+      if ((to - from + 1) <= name.length) {
+        adj.push([from, to, name.length])
+      }
+    });
+    
+    
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
       spanStyles.paddingLeft = theme.characterPadding;
@@ -66,6 +79,20 @@ class LineAnalyzer extends BaseComponent {
       if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
+      
+      // todo-01: refactor
+      for (let k = 0; k < adj.length; k++) {
+        const from = adj[k][0];
+        const to = adj[k][1];
+        const len = adj[k][2];
+        if (i == from) {
+          spanStyles.paddingLeft = len+"px";
+        }
+        if (i == to) {
+          spanStyles.paddingRight = len+"px";
+        }
+      }
+      
       spans.push(
         <span key={i} ref={i} style={spanStyles}>{text[i]}</span>
       );
