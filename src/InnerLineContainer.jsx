@@ -57,8 +57,15 @@ class InnerLineContainer extends BaseComponent {
             const from = annotation["from"];
             const to = annotation["to"];
             const name = annotation["name"];
+            
+            let pad = name.length;
+            for (let j = 0; j < adj.length; j++) {       
+              if (adj[j][0] == from && adj[j][2] > pad ) {
+                pad = adj[j][2];
+              }
+            }
             if ((to - from + 1) <= name.length) {
-              adj.push([from, to, name.length])
+              adj.push([from, to, pad]);
             }
           });
         });
@@ -74,11 +81,12 @@ class InnerLineContainer extends BaseComponent {
             const from = adj[k][0];
             const to = adj[k][1];
             const len = adj[k][2];
+            const pad = len+3;
             if (j == from) {
-              style.paddingLeft = len+"px";
+              style.paddingLeft = pad+"px";
             }
             if (j == to) {
-              style.paddingRight = len+"px";
+              style.paddingRight = pad+"px";
             }
           }
           

@@ -85,11 +85,12 @@ class LineAnalyzer extends BaseComponent {
         const from = adj[k][0];
         const to = adj[k][1];
         const len = adj[k][2];
+        const pad = len+3;
         if (i == from) {
-          spanStyles.paddingLeft = len+"px";
+          spanStyles.paddingLeft = pad+"px";
         }
         if (i == to) {
-          spanStyles.paddingRight = len+"px";
+          spanStyles.paddingRight = pad+"px";
         }
       }
       
