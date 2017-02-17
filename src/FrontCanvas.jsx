@@ -90,6 +90,7 @@ class FrontCanvas extends BaseComponent {
         );
       }
     });
+    var scrollsize = window.innerWidth;
     return (
       <div style={{
         position: "absolute",
@@ -97,7 +98,7 @@ class FrontCanvas extends BaseComponent {
         left: 0,
         pointerEvents: "none",
         zIndex: 10,
-        width: "100%",
+        width: scrollsize,
         height: "100%"
       }}>
         <SVGCanvas width="100%" height="100%">
