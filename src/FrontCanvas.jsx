@@ -54,6 +54,56 @@ class FrontCanvas extends BaseComponent {
     if (this.domNode) {
       offset = this.domNode.getBoundingClientRect();
     }
+    
+    
+    
+    
+    let labelsPos = [];
+    let labelsStart = [];
+    relations.forEach((relation, i) => {
+      const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
+      const t2Id = labelIdService.getLabelId(relation[3], relation[4]);
+      const t1 = document.getElementById(t1Id);
+      const t2 = document.getElementById(t2Id);
+      if (t1 && t2) {
+        const t1Rect = t1.getBoundingClientRect();
+        const t2Rect = t2.getBoundingClientRect();
+        const t1Left = t1Rect.left - offset.left;
+        const t2Left = t2Rect.left - offset.left;
+        labelsPos.push([i, Math.min(t1Left, t2Left), Math.max(t1Left, t2Left), Math.abs(t2Left - t1Left)])
+        labelsStart.push(Math.min(t1Left, t2Left))
+      }
+    });
+    let labelsHeight = {};
+    let max_pos = Math.max.apply({}, labelsStart);
+    let height = 0;
+    while (labelsPos.length != 0) {
+      labelsPos.sort(function(a, b){
+        if(a[3] < b[3]) return -1;
+        if(a[3] > b[3]) return 1;
+        return 0;
+      });
+      let tmp = [];
+      let a = false;
+      let b = false;
+      while (1) {
+        labelsHeight[labelsPos[0][0]] = height;
+        tmp.push(labelsPos[0]);
+        labelsPos.shift();
+        if (labelsPos.length == 0) {break;}
+        for (let i = 0; i < tmp.length; i++) {
+          a = labelsPos[0][1] < tmp[i][1] && tmp[i][1] < labelsPos[0][2];
+          b = labelsPos[0][1] < tmp[i][2] && tmp[i][2] < labelsPos[0][2];
+          if ((a&&b) || a || b) {break;}
+        }
+        if ((a&&b) || a || b) {break;}
+      }
+      height += 1;
+    }
+    
+    
+    
+    
     relations.forEach((relation, i) => {
       const type = relation[0];
       const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
@@ -86,6 +136,7 @@ class FrontCanvas extends BaseComponent {
                                 end={t2Pos}
                                 key={i}
                                 label={relation[5]}
+                                heightAdj={labelsHeight[i]}
           />
         );
       }
