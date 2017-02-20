@@ -66,12 +66,10 @@ class FrontCanvas extends BaseComponent {
       const t1 = document.getElementById(t1Id);
       const t2 = document.getElementById(t2Id);
       if (t1 && t2) {
-        const t1Rect = t1.getBoundingClientRect();
-        const t2Rect = t2.getBoundingClientRect();
-        const t1Left = t1Rect.left - offset.left;
-        const t2Left = t2Rect.left - offset.left;
-        labelsPos.push([i, Math.min(t1Left, t2Left), Math.max(t1Left, t2Left), Math.abs(t2Left - t1Left)])
-        labelsStart.push(Math.min(t1Left, t2Left))
+        let t1Pos = t1Id.split("-")[3]
+        let t2Pos = t2Id.split("-")[3]
+        labelsPos.push([i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos)])
+        labelsStart.push(Math.min(t1Pos, t2Pos))
       }
     });
     let labelsHeight = {};
