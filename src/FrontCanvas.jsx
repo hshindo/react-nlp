@@ -55,9 +55,7 @@ class FrontCanvas extends BaseComponent {
       offset = this.domNode.getBoundingClientRect();
     }
     
-    
-    
-    
+    // assign relation label's height
     let labelsPos = [];
     let labelsStart = [];
     relations.forEach((relation, i) => {
@@ -82,24 +80,22 @@ class FrontCanvas extends BaseComponent {
         return 0;
       });
       let tmp = [];
-      let a = false;
-      let b = false;
-      while (1) {
+      let arrowCrossFlg = false;
+      let crossRFoot = false;
+      let crossLFoot = false;
+      while (arrowCrossFlg == false) {
         labelsHeight[labelsPos[0][0]] = height;
         tmp.push(labelsPos[0]);
         labelsPos.shift();
         if (labelsPos.length == 0) {break;}
         for (let i = 0; i < tmp.length; i++) {
-          a = labelsPos[0][1] < tmp[i][1] && tmp[i][1] < labelsPos[0][2];
-          b = labelsPos[0][1] < tmp[i][2] && tmp[i][2] < labelsPos[0][2];
-          if ((a&&b) || a || b) {break;}
+          crossLFoot = labelsPos[0][1] < tmp[i][1] && tmp[i][1] < labelsPos[0][2];
+          crossRFoot = labelsPos[0][1] < tmp[i][2] && tmp[i][2] < labelsPos[0][2];
+          if ((crossRFoot && crossLFoot) || crossRFoot || crossLFoot) { arrowCrossFlg = true; }
         }
-        if ((a&&b) || a || b) {break;}
       }
       height += 1;
     }
-    
-    
     
     
     relations.forEach((relation, i) => {
