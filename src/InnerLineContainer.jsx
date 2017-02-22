@@ -80,7 +80,7 @@ class InnerLineContainer extends BaseComponent {
             const from = adj[k][0];
             const to = adj[k][1];
             const len = adj[k][2];
-            const pad = len+3;
+            const pad = len+8;
             if (j == from) {
               style.paddingLeft = pad+"px";
             }

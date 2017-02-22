@@ -16,7 +16,7 @@ const defaultTheme = {
   characterPadding: 0,
   relationColor: "black",
   relationLabelFontSize: "12px",
-  relationLabelPadding: "0px 1px",
+  relationLabelPadding: "0px 0px",
   relationLabelBorder: "solid 1px gray",
   relationLabelColor: "black",
   relationLabelBgColor: "white",
