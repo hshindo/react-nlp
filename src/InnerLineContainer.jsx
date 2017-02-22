@@ -57,7 +57,6 @@ class InnerLineContainer extends BaseComponent {
             const from = annotation["from"];
             const to = annotation["to"];
             const name = annotation["name"];
-            
             let pad = name.length;
             for (let j = 0; j < adj.length; j++) {       
               if (adj[j][0] == from && adj[j][2] > pad ) {
@@ -106,7 +105,7 @@ class InnerLineContainer extends BaseComponent {
           charCount++;
         }
         lines.push(
-          <div key={i} style={{height: "160px", position: "relative", top: "90px", zIndex: "20"}}>
+          <div key={i} style={{height: "160px", position: "relative", top: "90px", zIndex: "5"}}>
             {annotationLines}
             <div style={{whiteSpace: "nowrap"}}>{text}</div>
           </div>

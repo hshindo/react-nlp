@@ -16,14 +16,14 @@ function detectYPosition(offsetY, rect1, rect2) {
   }
   if (rect1.top < rect2.top) {
     return [
-      rect1.top - offsetY + rect1.height,
+      rect1.top - offsetY,
       rect2.top - offsetY
     ]
   }
   if (rect1.top > rect2.top) {
     return [
       rect1.top - offsetY,
-      rect2.top - offsetY + rect2.height
+      rect2.top - offsetY
     ]
   }
 }
@@ -55,7 +55,7 @@ class FrontCanvas extends BaseComponent {
       offset = this.domNode.getBoundingClientRect();
     }
     
-    // assign relation label's height
+    // assign relation label's height --↓
     let labelsPos = [];
     let labelsStart = [];
     relations.forEach((relation, i) => {
@@ -64,10 +64,10 @@ class FrontCanvas extends BaseComponent {
       const t1 = document.getElementById(t1Id);
       const t2 = document.getElementById(t2Id);
       if (t1 && t2) {
-        let t1Pos = t1Id.split("-")[3]
-        let t2Pos = t2Id.split("-")[3]
-        labelsPos.push([i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos)])
-        labelsStart.push(Math.min(t1Pos, t2Pos))
+        const t1Pos = t1Id.split("-")[3];
+        const t2Pos = t2Id.split("-")[3];
+        labelsPos.push([i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos)]);
+        labelsStart.push(Math.min(t1Pos, t2Pos));
       }
     });
     let labelsHeight = {};
@@ -96,7 +96,7 @@ class FrontCanvas extends BaseComponent {
       }
       height += 1;
     }
-    
+    // assign relation label's height --↑
     
     relations.forEach((relation, i) => {
       const type = relation[0];
@@ -117,11 +117,13 @@ class FrontCanvas extends BaseComponent {
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
-          y: t1Top
+          y: t1Top,
+          width: t1Rect.width
         };
         const t2Pos = {
           x: t2Left + (t2Rect.width / 2),
-          y: t2Top
+          y: t2Top,
+          width: t2Rect.width
         };
         connectors.push(
           <SVGRelationConnector markerType={relation[0]}

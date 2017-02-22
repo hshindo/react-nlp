@@ -6,20 +6,19 @@ function detectCurvePoint(t1, t2) {
   const minX = Math.min(t1.x, t2.x);
   const minY = Math.min(t1.y, t2.y);
 
-  const xMargin = Math.abs(t2.x - t1.x);
-  const yMargin = Math.abs(t2.y - t1.y);
-
-  let x = minX + (xMargin / 2);
-  let y = minY + (yMargin / 2);
+  let xMargin = Math.abs(t2.x - t1.x);
+  let yMargin = Math.abs(t2.y - t1.y);
   
-  if (xMargin < 5) {
-    x += 10;
+  if (t1.x < t2.x) {
+    xMargin = xMargin + t1.width*1/4 - t2.width*1/4;
+  } else if (t1.x > t2.x) {
+    xMargin = xMargin - t1.width*1/4 + t2.width*1/4;
   }
-  if (yMargin < 5) {
-    y -= 10;
-  }
-
-  return {x: x, y: y - 20};
+  
+  let x = minX + (xMargin / 2);
+  let y = minY + (yMargin);
+  
+  return {x: x, y: y - 35};
 }
 
 class SVGRelationConnector extends BaseComponent {
@@ -28,9 +27,21 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
     
-    let height = 13*heightAdj
     let pad = (start.x < end.x) ? 5 : -5;
-    let dAttr = "M" + (start.x|0) + "," + (start.y|0) + " L " + (start.x + pad|0) + "," + (cp.y - height|0) + " " + (end.x - pad|0) + "," + (cp.y-height|0) + " " + (end.x|0) + "," + (end.y|0);
+
+    let height = 13*heightAdj;
+    
+    let startX = start.x;
+    let endX = end.x;
+    if (start.x <= end.x) {
+      startX += start.width * 1/4;
+      endX -= end.width * 1/4;
+    } else if (start.x > end.x) {
+      startX -= start.width * 1/4;
+      endX += end.width * 1/4;
+    }
+  
+    let dAttr = "M" + (startX|0) + "," + (start.y|0) + " L " + (startX + pad|0) + "," + (cp.y - height|0) + " " + (endX - pad|0) + "," + (cp.y-height|0) + " " + (endX|0) + "," + (end.y|0);
     
     let markerStart = null;
     let markerEnd = null;
