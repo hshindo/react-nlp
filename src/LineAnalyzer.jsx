@@ -60,24 +60,30 @@ class LineAnalyzer extends BaseComponent {
     const spans = [];
     let keyIdx = 0;
     
-    // todo-01: refactor
-    let adj = [];
+    // keep space between words
+    let tmp = [];
     annotations.forEach((annotation) => {
       const from = annotation[1];
       const to = annotation[2];
       const name = annotation[3];
+      tmp.push([from, to, name]);
+    });
+    let adj = [];
+    for (let i = 0; i < tmp.length; i++) {
+      const from = tmp[i][0];
+      const to = tmp[i][1];
+      const name = tmp[i][2];
       let pad = name.length;
+      // pad value select wider one label in NE and POS label
       for (let j = 0; j < adj.length; j++) {       
-        if (adj[j][0] == from && adj[j][1] == to && adj[j][2] > pad ) {
+        if (adj[j][0] == from && adj[j][1] == to && adj[j][2] > name.length ) {
           pad = adj[j][2];
         }
       }
-      if ((to - from + 1) <= pad) {
-        // BUG: name.length と padでズレが出てる(->InnerLineContainer)
+      if ((to - from + 3) <= pad) {
         adj.push([from, to, pad])
       }
-      console.log(from);
-    });
+    }
 
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
@@ -87,12 +93,12 @@ class LineAnalyzer extends BaseComponent {
         spanStyles.whiteSpace = "pre";
       }
       
-      // todo-01: refactor
+      // keep space between words
       for (let k = 0; k < adj.length; k++) {
         const from = adj[k][0];
         const to = adj[k][1];
         const len = adj[k][2];
-        const pad = len+8;
+        const pad = (len-(to-from))*5;
         if (i == from) {
           spanStyles.paddingLeft = pad+"px";
         }
