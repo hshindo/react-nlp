@@ -59,13 +59,15 @@ class InnerLineContainer extends BaseComponent {
             const name = annotation["name"];
             let pad = name.length;
             for (let j = 0; j < adj.length; j++) {       
-              if (adj[j][0] == from && adj[j][2] > pad ) {
+              if (adj[j][0] == from && adj[j][1] == to && adj[j][2] > pad ) {
                 pad = adj[j][2];
               }
             }
             if ((to - from + 1) <= name.length) {
+              // BUG: name.length と padでズレが出てる(->LineAnalyzer)
               adj.push([from, to, pad]);
             }
+            console.log(from);
           });
         });
         

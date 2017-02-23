@@ -66,12 +66,19 @@ class LineAnalyzer extends BaseComponent {
       const from = annotation[1];
       const to = annotation[2];
       const name = annotation[3];
-      if ((to - from + 1) <= name.length) {
-        adj.push([from, to, name.length])
+      let pad = name.length;
+      for (let j = 0; j < adj.length; j++) {       
+        if (adj[j][0] == from && adj[j][1] == to && adj[j][2] > pad ) {
+          pad = adj[j][2];
+        }
       }
+      if ((to - from + 1) <= pad) {
+        // BUG: name.length と padでズレが出てる(->InnerLineContainer)
+        adj.push([from, to, pad])
+      }
+      console.log(from);
     });
-    
-    
+
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
       spanStyles.paddingLeft = theme.characterPadding;
