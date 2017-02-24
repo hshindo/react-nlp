@@ -10,7 +10,7 @@ const defaultTheme = {
   annotationLinePadding: "0px 3px",
   labelFontSize: "0.6em",
   labelColor: "black",
-  labelPadding: "0px 3px",
+  labelPadding: "0px 1px",
   labelBorder: "solid 1px gray",
   markColor: "#ffe4e1",
   characterPadding: 0,
