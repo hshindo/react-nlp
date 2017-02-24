@@ -56,42 +56,86 @@ class FrontCanvas extends BaseComponent {
     }
     
     // assign relation label's height --↓
-    let labelsPos = [];
-    let labelsStart = [];
+    let labelsX = [];
     relations.forEach((relation, i) => {
       const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
       const t2Id = labelIdService.getLabelId(relation[3], relation[4]);
       const t1 = document.getElementById(t1Id);
       const t2 = document.getElementById(t2Id);
       if (t1 && t2) {
-        const t1Pos = t1Id.split("-")[3];
-        const t2Pos = t2Id.split("-")[3];
-        labelsPos.push([i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos)]);
-        labelsStart.push(Math.min(t1Pos, t2Pos));
+        const t1Rect = t1.getBoundingClientRect();
+        const t2Rect = t2.getBoundingClientRect();
+        const t1Cent = t1Rect.left + t1Rect.width*1/2;
+        const t2Cent = t2Rect.left + t2Rect.width*1/2;
+        // set label's x_pos
+        labelsX.push(t1Cent, t2Cent);
       }
     });
+    // delete overlap in x_pos
+    labelsX = labelsX.filter(function (x, i, self) {
+      return self.indexOf(x) === i;
+    });
+    // order by x_pos
+    labelsX.sort(function(a, b){
+      if(a < b) return -1;
+      if(a > b) return 1;
+      return 0;
+    });
+    
+    let labelsPos = [];
+    relations.forEach((relation, i) => {
+      const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
+      const t2Id = labelIdService.getLabelId(relation[3], relation[4]);
+      const t1 = document.getElementById(t1Id);
+      const t2 = document.getElementById(t2Id);
+      if (t1 && t2) {
+        const t1Rect = t1.getBoundingClientRect();
+        const t2Rect = t2.getBoundingClientRect();
+        const t1Cent = t1Rect.left + t1Rect.width*1/2;
+        const t2Cent = t2Rect.left + t2Rect.width*1/2;
+        // set label's x_pos
+        const t1Pos = labelsX.indexOf(t1Cent);
+        const t2Pos = labelsX.indexOf(t2Cent);
+        labelsPos.push([i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos)]);
+        console.log(i, Math.min(t1Pos, t2Pos), Math.max(t1Pos, t2Pos), Math.abs(t1Pos - t2Pos));
+      }
+    });
+    
+    
     let labelsHeight = {};
-    let max_pos = Math.max.apply({}, labelsStart);
+    let max_pos = Math.max.apply({}, labelsPos);
     let height = 0;
     while (labelsPos.length != 0) {
+      // arrange relation label by height
       labelsPos.sort(function(a, b){
         if(a[3] < b[3]) return -1;
         if(a[3] > b[3]) return 1;
         return 0;
       });
+      // arrows pointing itself
+      while (labelsPos[0][3] == 0) {
+        labelsHeight[labelsPos[0][0]] = height+1;
+        labelsPos.shift();
+      }
       let tmp = [];
       let arrowCrossFlg = false;
       let crossRFoot = false;
       let crossLFoot = false;
+      let sameFromTo = false;
       while (arrowCrossFlg == false) {
         labelsHeight[labelsPos[0][0]] = height;
         tmp.push(labelsPos[0]);
         labelsPos.shift();
         if (labelsPos.length == 0) {break;}
         for (let i = 0; i < tmp.length; i++) {
+          // IDで見てる、距離じゃない。neタグで狂ってる
           crossLFoot = labelsPos[0][1] < tmp[i][1] && tmp[i][1] < labelsPos[0][2];
           crossRFoot = labelsPos[0][1] < tmp[i][2] && tmp[i][2] < labelsPos[0][2];
-          if ((crossRFoot && crossLFoot) || crossRFoot || crossLFoot) { arrowCrossFlg = true; }
+          sameFromTo = labelsPos[0][1] == tmp[i][1] && tmp[i][2] == labelsPos[0][2];
+          if ((crossRFoot && crossLFoot) || crossRFoot || crossLFoot || sameFromTo) {
+            arrowCrossFlg = true;
+            break;
+          }
         }
       }
       height += 1;
