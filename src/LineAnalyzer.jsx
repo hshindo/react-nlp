@@ -60,7 +60,7 @@ class LineAnalyzer extends BaseComponent {
     const spans = [];
     let keyIdx = 0;
     
-    // keep space between words
+    // -- keep space between words -↓
     let tmp = [];
     annotations.forEach((annotation) => {
       const from = annotation[1];
@@ -80,10 +80,11 @@ class LineAnalyzer extends BaseComponent {
           pad = adj[j][2];
         }
       }
-      if ((to - from + 3) <= pad) {
+      if ((to - from) <= pad) {
         adj.push([from, to, pad])
       }
     }
+    // -- keep space between words -↑
 
     for (let i = 0; i < text.length; i++) {
       let spanStyles = {};
@@ -93,12 +94,11 @@ class LineAnalyzer extends BaseComponent {
         spanStyles.whiteSpace = "pre";
       }
       
-      // keep space between words
+      // -- keep space between words -↓
       for (let k = 0; k < adj.length; k++) {
         const from = adj[k][0];
         const to = adj[k][1];
-        const len = adj[k][2];
-        const pad = (len-(to-from))*5;
+        const pad = (adj[k][2]-(to-from)*1.5)*3 + 10;
         if (i == from) {
           spanStyles.paddingLeft = pad+"px";
         }
@@ -106,6 +106,7 @@ class LineAnalyzer extends BaseComponent {
           spanStyles.paddingRight = pad+"px";
         }
       }
+      // -- keep space between words -↑
       
       spans.push(
         <span key={i} ref={i} style={spanStyles}>{text[i]}</span>
