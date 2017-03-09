@@ -50,7 +50,7 @@ class InnerLineContainer extends BaseComponent {
           );
         });
         
-        // -- keep space between words
+        // -- keep space between words -↓
         let tmp = [];
         info.annotations.forEach((annotationLine) => {
           annotationLine.forEach((annotation) => {
@@ -72,12 +72,10 @@ class InnerLineContainer extends BaseComponent {
               pad = adj[j][2];
             }
           }
-          if ((to - from) <= pad) {
-            adj.push([from, to, pad]);
-          } else {
-            adj.push([from, to, 0]);
-          }
+          if ((to - from) <= pad) { adj.push([from, to, pad]); }
+          else { adj.push([from, to, 0]); }
         }
+        // -- keep space between words -↑
         
         const text = [];
         for (let j = 0; j < info.text.length; j++) {
@@ -85,18 +83,15 @@ class InnerLineContainer extends BaseComponent {
           style.paddingLeft = theme.characterPadding;
           style.paddingRight = theme.characterPadding;
           
-          // -- keep space between words
+          // -- keep space between words -↓
           for (let k = 0; k < adj.length; k++) {
             const from = adj[k][0];
             const to = adj[k][1];
-            const pad = (adj[k][2]-(to-from)*1.5)*3 + 10;
-            if (j == from) {
-              style.paddingLeft = pad+"px";
-            }
-            if (j == to) {
-              style.paddingRight = pad+"px";
-            }
+            const pad = (adj[k][2]-(to-from)*1.5)*3 + 23;
+            if (j == from) { style.paddingLeft = pad+"px"; }
+            if (j == to) { style.paddingRight = pad+"px"; }
           }
+          // -- keep space between words -↑
               
           if (this.state.markTarget) {
             const target = this.state.markTarget;

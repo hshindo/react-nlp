@@ -80,9 +80,8 @@ class LineAnalyzer extends BaseComponent {
           pad = adj[j][2];
         }
       }
-      if ((to - from) <= pad) {
-        adj.push([from, to, pad])
-      }
+      if ((to - from) <= pad) { adj.push([from, to, pad]); }
+      else { adj.push([from, to, 0]); }
     }
     // -- keep space between words -↑
 
@@ -98,13 +97,9 @@ class LineAnalyzer extends BaseComponent {
       for (let k = 0; k < adj.length; k++) {
         const from = adj[k][0];
         const to = adj[k][1];
-        const pad = (adj[k][2]-(to-from)*1.5)*3 + 10;
-        if (i == from) {
-          spanStyles.paddingLeft = pad+"px";
-        }
-        if (i == to) {
-          spanStyles.paddingRight = pad+"px";
-        }
+        const pad = (adj[k][2]-(to-from)*1.5)*3 + 23;
+        if (i == from) { spanStyles.paddingLeft = pad+"px"; }
+        if (i == to) { spanStyles.paddingRight = pad+"px"; }
       }
       // -- keep space between words -↑
       
