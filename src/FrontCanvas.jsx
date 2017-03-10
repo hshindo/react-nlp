@@ -148,6 +148,7 @@ class FrontCanvas extends BaseComponent {
     }
     // assign relation label's height --↑
     
+    let yPosList = new Set([]);
     relations.forEach((relation, i) => {
       const type = relation[0];
       const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
@@ -164,6 +165,11 @@ class FrontCanvas extends BaseComponent {
         const t1Left = t1Rect.left - offset.left;
         const t2Top = yPos[1];
         const t2Left = t2Rect.left - offset.left;
+        
+        let ne2ne = false;
+        yPosList.add(t1Top);
+        yPosList.add(t2Top);
+        if (Math.min(Array.from(yPosList)) == 100 && t1Top == t2Top) {ne2ne = true;}
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
@@ -183,10 +189,12 @@ class FrontCanvas extends BaseComponent {
                                 key={i}
                                 label={relation[5]}
                                 heightAdj={labelsHeight[i][1]}
+                                ne2ne={ne2ne}
           />
         );
       }
     });
+    
     var scrollsize = window.innerWidth;
     return (
       <div style={{
