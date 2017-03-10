@@ -29,7 +29,7 @@ class SVGRelationConnector extends BaseComponent {
     
     const height = 13*heightAdj;
     let labelHeight = height;
-    if (ne2ne == true) {cp.y += 10;}
+    if (ne2ne == true) {cp.y += 18;}
     
     const pad = (start.x < end.x) ? 5 : -5;
     

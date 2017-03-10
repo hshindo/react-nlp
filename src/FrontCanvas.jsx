@@ -169,7 +169,7 @@ class FrontCanvas extends BaseComponent {
         let ne2ne = false;
         yPosList.add(t1Top);
         yPosList.add(t2Top);
-        if (Math.min(Array.from(yPosList)) == 100 && t1Top == t2Top) {ne2ne = true;}
+        if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) {ne2ne = true;}
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
