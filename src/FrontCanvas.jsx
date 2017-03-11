@@ -124,6 +124,8 @@ class FrontCanvas extends BaseComponent {
         const minOrder = Math.min(labelsPos[0][1], labelsPos[0][2]);
         const maxOrder = Math.max(labelsPos[0][1], labelsPos[0][2]);
         
+        if (gap == 0) { labelHeight = 1; }
+        
         for (let i = 0; i < tmp.length; i++) {
           if (labelsPos[0][3] != tmp[i][3]) { continue; }
           const gap_tmp = Math.abs(tmp[i][1] - tmp[i][2]);
@@ -137,8 +139,6 @@ class FrontCanvas extends BaseComponent {
           }
         }
         if (arrowCrossFlg) { break; }
-        
-        if (gap == 0) { labelHeight = 2; }
         
         labelHeight += height;
         labelsHeight[labelsPos[0][0]] = [labelsPos[0], labelHeight];
