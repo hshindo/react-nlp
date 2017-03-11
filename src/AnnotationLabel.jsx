@@ -3,14 +3,16 @@ import BaseComponent from "./BaseComponent";
 
 class AnnotationLabel extends BaseComponent {
   render() {
-    const { text, color, onMouseOver, onMouseOut, id } = this.props;
+    const { text, color, target, i, onMouseOver, onMouseOut, id } = this.props;
     const { theme } = this.context;
+    const widthValue = (target == i) ? 2 : 1;
     return (
       <span style={{
         position: "absolute",
         left: "50%",
         backgroundColor: color,
         border: theme.labelBorder,
+        borderWidth: widthValue,
         borderRadius: 0,
         transform: "translateX(-50%)",
         color: theme.labelColor,
