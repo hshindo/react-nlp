@@ -97,7 +97,7 @@ class LineAnalyzer extends BaseComponent {
       for (let k = 0; k < adj.length; k++) {
         const from = adj[k][0];
         const to = adj[k][1];
-        const pad = (adj[k][2]-(to-from)*1.5)*3 + 23;
+        const pad = (adj[k][2]-(to-from)*1.5)*3 + 25;
         if (i == from) { spanStyles.paddingLeft = pad+"px"; }
         if (i == to) { spanStyles.paddingRight = pad+"px"; }
       }

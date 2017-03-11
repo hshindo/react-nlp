@@ -87,7 +87,7 @@ class InnerLineContainer extends BaseComponent {
           for (let k = 0; k < adj.length; k++) {
             const from = adj[k][0];
             const to = adj[k][1];
-            const pad = (adj[k][2]-(to-from)*1.5)*3 + 23;
+            const pad = (adj[k][2]-(to-from)*1.5)*3 + 25;
             if (j == from) { style.paddingLeft = pad+"px"; }
             if (j == to) { style.paddingRight = pad+"px"; }
           }
@@ -108,7 +108,7 @@ class InnerLineContainer extends BaseComponent {
           charCount++;
         }
         lines.push(
-          <div key={i} style={{height: "160px", position: "relative", top: "90px", zIndex: "5"}}>
+          <div key={i} style={{height: "140px", position: "relative", top: "90px", zIndex: "5"}}>
             {annotationLines}
             <div style={{whiteSpace: "nowrap"}}>{text}</div>
           </div>

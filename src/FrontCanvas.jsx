@@ -129,7 +129,6 @@ class FrontCanvas extends BaseComponent {
           const maxOrder_tmp = Math.max(tmp[i][1], tmp[i][2]);
           if (labelsPos[0][3] != tmp[i][3]) { continue; }
           if (minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) {
-            console.log(labelsPos[0], tmp[i]);
             labelHeight += 1;
           }
           else if (minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder) {
@@ -138,8 +137,10 @@ class FrontCanvas extends BaseComponent {
         }
         if (arrowCrossFlg) { break; }
         
-        if (gap == 0) { labelHeight = 1; }
-        
+        if (gap == 0) { 
+          labelHeight = 2;
+          if (height <= 1) { tmp.push(labelsPos[0]); }
+        }
         labelHeight += height;
         labelsHeight[labelsPos[0][0]] = [labelsPos[0], labelHeight];
         if (labelHeight == height) { tmp.push(labelsPos[0]); }
@@ -172,10 +173,7 @@ class FrontCanvas extends BaseComponent {
         let isUpper = false;
         yPosList.add(t1Top);
         yPosList.add(t2Top);
-        if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) {
-          isUpper = true;
-          console.log(t1Top, t2Top);
-        }
+        if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) { isUpper = true; }
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
