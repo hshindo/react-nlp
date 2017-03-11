@@ -27,7 +27,7 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
     
-    let height = 13*heightAdj+5;
+    let height = (heightAdj>0) ? 13*heightAdj+12 : 13*heightAdj+5;
     let labelHeight = height;
     
     if (isUpper == true) {cp.y += 18;}
