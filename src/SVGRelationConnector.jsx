@@ -18,7 +18,7 @@ function detectCurvePoint(t1, t2) {
   const x = minX + (xMargin / 2);
   const y = minY + (yMargin);
   
-  return {x: x, y: y - 6};
+  return {x: x, y: y};
 }
 
 class SVGRelationConnector extends BaseComponent {
@@ -27,7 +27,7 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
     
-    let height = 13*heightAdj;
+    let height = 13*heightAdj+5;
     let labelHeight = height;
     
     if (isUpper == true) {cp.y += 18;}
