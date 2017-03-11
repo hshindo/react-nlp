@@ -103,7 +103,6 @@ class FrontCanvas extends BaseComponent {
     });
     
     let labelsHeight = {}; // [[id, from, to], height]
-    let height = 0;
     while (labelsPos.length != 0) {
       // sort by x distance
       labelsPos.sort(function(a, b){
@@ -112,43 +111,42 @@ class FrontCanvas extends BaseComponent {
         return 0;
       });
       
-      let tmp = [];
-      for (var key in labelsHeight) {
-        if (labelsHeight[key][1] == height) { tmp.push(labelsHeight[key][0]); }
-      }
-      
-      let arrowCrossFlg = false;
+      let arrowCross = 0;
       while (1) {
-        let labelHeight = 0;
+        let height = 0;
         const gap = Math.abs(labelsPos[0][1] - labelsPos[0][2]);
         const minOrder = Math.min(labelsPos[0][1], labelsPos[0][2]);
         const maxOrder = Math.max(labelsPos[0][1], labelsPos[0][2]);
         
         /* self-pointed label is height 1 */
-        if (gap == 0) { labelHeight = 1; }
+        if (gap == 0) { height = 1; }
         
-        for (let i = 0; i < tmp.length; i++) {
-          if (labelsPos[0][3] != tmp[i][3]) { continue; }
-          const gap_tmp = Math.abs(tmp[i][1] - tmp[i][2]);
-          const minOrder_tmp = Math.min(tmp[i][1], tmp[i][2]);
-          const maxOrder_tmp = Math.max(tmp[i][1], tmp[i][2]);
+        let tmp = [];
+        for (var key in labelsHeight) {
+          if (labelsPos[0][3] != labelsHeight[key][0][3]) { continue; }
+          
+          const labelPos = labelsHeight[key][0];
+          const labelHeight = labelsHeight[key][1];
+          const gap_tmp = Math.abs(labelPos[1] - labelPos[2]);
+          const minOrder_tmp = Math.min(labelPos[1], labelPos[2]);
+          const maxOrder_tmp = Math.max(labelPos[1], labelPos[2]);
+          
+          const isIncluding = minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder;
+          const isException = (minOrder_tmp == maxOrder_tmp) && (minOrder == minOrder_tmp || maxOrder == maxOrder_tmp);
           if (minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) {
-            labelHeight += 1;
+            height += 1;
           }
-          else if (minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder && !(gap_tmp == 0)) {
-            arrowCrossFlg = true;
+          else if (isIncluding && !isException) {
+            tmp.push(labelHeight);
           }
         }
-        if (arrowCrossFlg) { break; }
-        
-        labelHeight += height;
-        labelsHeight[labelsPos[0][0]] = [labelsPos[0], labelHeight];
-        if (labelHeight == height) { tmp.push(labelsPos[0]); }
+        const innerHeight = Math.max.apply(null, tmp);
+        height += (innerHeight < 0) ? 0 : innerHeight+1;
+        labelsHeight[labelsPos[0][0]] = [labelsPos[0], height];
         labelsPos.shift();
         
         if (labelsPos.length == 0) { break; }
       }
-      height += 1;
     }
     // assign relation label's height --↑
     
