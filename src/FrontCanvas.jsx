@@ -124,6 +124,7 @@ class FrontCanvas extends BaseComponent {
         const minOrder = Math.min(labelsPos[0][1], labelsPos[0][2]);
         const maxOrder = Math.max(labelsPos[0][1], labelsPos[0][2]);
         
+        /* self-pointed label is height 1 */
         if (gap == 0) { labelHeight = 1; }
         
         for (let i = 0; i < tmp.length; i++) {
@@ -152,6 +153,7 @@ class FrontCanvas extends BaseComponent {
     // assign relation label's height --↑
     
     let yPosList = new Set([]);
+    let tLine = 0;
     relations.forEach((relation, i) => {
       const type = relation[0];
       const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
@@ -171,10 +173,12 @@ class FrontCanvas extends BaseComponent {
         
         /* detect both of labels in upper row */
         let isUpper = false;
-        yPosList.add(t1Top);
-        yPosList.add(t2Top);
+        let tmp = tLine;
+        tLine = t1Id.toString().split("-")[2];
+        if (tmp != tLine) { yPosList = new Set([]); }
+        yPosList.add(t1Top, t2Top);
         if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) { isUpper = true; }
-
+        
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
           y: t1Top,
