@@ -93,28 +93,24 @@ class FrontCanvas extends BaseComponent {
         const t2Rect = t2.getBoundingClientRect();
         const t1Cent = t1Rect.left + t1Rect.width*1/2;
         const t2Cent = t2Rect.left + t2Rect.width*1/2;
-        // ordering by x_order
+        
         const t1Order = labelsX.indexOf(t1Cent);
         const t2Order = labelsX.indexOf(t2Cent);
-        labelsPos.push([i, t1Order, t2Order]);
+        
+        const tLine = t1Id.toString().split("-")[2];
+        labelsPos.push([i, t1Order, t2Order, tLine]);
       }
     });
     
     let labelsHeight = {}; // [[id, from, to], height]
     let height = 0;
     while (labelsPos.length != 0) {
-      
-      // arrange relation label by height
+      // sort by x distance
       labelsPos.sort(function(a, b){
         if (Math.abs(a[1] - a[2]) < Math.abs(b[1] - b[2])) return -1;
         if (Math.abs(a[1] - a[2]) > Math.abs(b[1] - b[2])) return 1;
         return 0;
       });
-      // arrows pointing itself is height 1
-      while (labelsPos[0][1] == labelsPos[0][2]) {
-        labelsHeight[labelsPos[0][0]] = [labelsPos[0], 1];
-        labelsPos.shift();
-      }
       
       let tmp = [];
       for (var key in labelsHeight) {
@@ -131,12 +127,18 @@ class FrontCanvas extends BaseComponent {
         for (let i = 0; i < tmp.length; i++) {
           const minOrder_tmp = Math.min(tmp[i][1], tmp[i][2]);
           const maxOrder_tmp = Math.max(tmp[i][1], tmp[i][2]);
-          if ( minOrder == minOrder_tmp && maxOrder_tmp == maxOrder ) {
+          if (labelsPos[0][3] != tmp[i][3]) { continue; }
+          if (minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) {
+            console.log(labelsPos[0], tmp[i]);
             labelHeight += 1;
           }
-          if (minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder && !(minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) ) { arrowCrossFlg = true; }
+          else if (minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder) {
+            arrowCrossFlg = true;
+          }
         }
         if (arrowCrossFlg) { break; }
+        
+        if (gap == 0) { labelHeight = 1; }
         
         labelHeight += height;
         labelsHeight[labelsPos[0][0]] = [labelsPos[0], labelHeight];
@@ -166,10 +168,14 @@ class FrontCanvas extends BaseComponent {
         const t2Top = yPos[1];
         const t2Left = t2Rect.left - offset.left;
         
-        let ne2ne = false;
+        /* detect both of labels in upper row */
+        let isUpper = false;
         yPosList.add(t1Top);
         yPosList.add(t2Top);
-        if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) {ne2ne = true;}
+        if (yPosList.size == 2 && t1Top == Math.min.apply(null, Array.from(yPosList)) && t2Top == Math.min.apply(null, Array.from(yPosList))) {
+          isUpper = true;
+          console.log(t1Top, t2Top);
+        }
 
         const t1Pos = {
           x: t1Left + (t1Rect.width / 2),
@@ -189,7 +195,7 @@ class FrontCanvas extends BaseComponent {
                                 key={i}
                                 label={relation[5]}
                                 heightAdj={labelsHeight[i][1]}
-                                ne2ne={ne2ne}
+                                isUpper={isUpper}
           />
         );
       }
