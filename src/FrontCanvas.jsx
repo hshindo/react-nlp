@@ -156,7 +156,7 @@ class FrontCanvas extends BaseComponent {
       const type = relation[0];
       const t1Id = labelIdService.getLabelId(relation[1], relation[2]);
       const t2Id = labelIdService.getLabelId(relation[3], relation[4]);
-      const label = relation[5];
+      const label = relation[5] + "-" + relation[1];
       const t1 = document.getElementById(t1Id);
       const t2 = document.getElementById(t2Id);
       if (t1 && t2) {
@@ -193,7 +193,7 @@ class FrontCanvas extends BaseComponent {
                                 start={t1Pos}
                                 end={t2Pos}
                                 key={i}
-                                label={relation[5]}
+                                label={label}
                                 heightAdj={labelsHeight[i][1]}
                                 isUpper={isUpper}
                                 onMouseOver={onMouseOver}

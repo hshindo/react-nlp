@@ -24,6 +24,7 @@ function detectCurvePoint(t1, t2) {
 class SVGRelationConnector extends BaseComponent {
   render() {
     const { markerType, markerId, start, end, type, label, heightAdj, isUpper, onMouseOver, onMouseOut } = this.props;
+    const text = label.split("-")[0];
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
     
@@ -66,7 +67,7 @@ class SVGRelationConnector extends BaseComponent {
     return (
       <g>
         <path d={dAttr} fill="none" stroke={this.context.theme.relationColor} strokeWidth="1" markerStart={markerStart} markerEnd={markerEnd} />
-        <SVGRelationLabel text={label} x={cp.x|0} y={cp.y-15 - labelHeight|0} labelId={label} onMouseOver={onMouseOver} onMouseOut={onMouseOut} />
+        <SVGRelationLabel text={text} x={cp.x|0} y={cp.y-15 - labelHeight|0} labelId={label} onMouseOver={onMouseOver} onMouseOut={onMouseOut} />
       </g>
     )
   }
