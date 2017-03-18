@@ -3,9 +3,9 @@ import BaseComponent from "./BaseComponent";
 
 class AnnotationLabel extends BaseComponent {
   render() {
-    const { text, color, target, i, onMouseOver, onMouseOut, id } = this.props;
+    const { text, color, target, isTarget, onMouseOver, onMouseOut, id } = this.props;
     const { theme } = this.context;
-    const widthValue = (target == i) ? 2 : 1;
+    const widthValue = isTarget ? 2 : 1;
     return (
       <span style={{
         position: "absolute",

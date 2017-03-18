@@ -17,12 +17,19 @@ class View extends React.Component {
     this.canvasUpdateHandler = new DataHandler(true);
     this.theme = assignTheme(this.props.theme);
     this.labelIdService = new LabelIdService(this.viewId);
+    this.state = { relLabelHovered: "" };
   }
   getChildContext() {
     return {
       theme: this.theme,
       labelIdService: this.labelIdService
     };
+  }
+  onMouseOver(label) {
+    this.setState({ relLabelHovered: label });
+  }
+  onMouseOut() {
+    this.setState({ relLabelHovered: "" });
   }
   componentWillReceiveProps(nextProps) {
     this.lineAnnotations = {};
@@ -46,6 +53,16 @@ class View extends React.Component {
     if (!data) {
       return null;
     }
+    
+    let tIds = [];
+    relations.forEach((relation) => {
+      const type = relation[0];
+      const t1Id = this.labelIdService.getLabelId(relation[1], relation[2]);
+      const t2Id = this.labelIdService.getLabelId(relation[3], relation[4]);
+      const label = relation[5];
+      if (label == this.state.relLabelHovered) {tIds.push([t1Id, t2Id])}
+    });
+    
     const lines = [];
     data.forEach((line, i) => {
       let num = linum ? i + 1 : null;
@@ -61,6 +78,7 @@ class View extends React.Component {
               colors={colors}
               types={types}
               linum={num}
+              tIds={tIds}
               keepWhiteSpaces={!!keepWhiteSpaces}
               onAnnotationsAnalysis={(annotations) => {
                   this.handleLineAnnotationsAnalysis(i, data.length, annotations)
@@ -85,6 +103,8 @@ class View extends React.Component {
         {lines}
         <FrontCanvas updateHandler={this.canvasUpdateHandler}
                      relations={relations}
+                     onMouseOver={this.onMouseOver.bind(this)}
+                     onMouseOut={this.onMouseOut.bind(this)}
         />
       </div>
     );

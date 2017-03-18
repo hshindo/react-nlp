@@ -38,6 +38,7 @@ class InnerLineContainer extends BaseComponent {
   render() {
     const {lineInfo, keepWhiteSpaces, fontSize} = this.state;
     const { theme } = this.context;
+    const { tIds } = this.props;
     let lines = null;
     if (lineInfo) {
       lines = [];
@@ -46,7 +47,7 @@ class InnerLineContainer extends BaseComponent {
         const annotationLines = [];
         info.annotations.forEach((labels, i) => {
           annotationLines.push(
-            <AnnotationLine key={i} fontSize={fontSize} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
+            <AnnotationLine key={i} fontSize={fontSize} labels={labels} tIds={tIds} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
         
