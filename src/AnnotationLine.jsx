@@ -21,9 +21,22 @@ class AnnotationLine extends BaseComponent {
     });
   }
   render() {
-    const { fontSize, labels, onMouseOver, onMouseOut} = this.props;
+    const { fontSize, labels, tIds, onMouseOver, onMouseOut} = this.props;
     const boxes = [];
     labels.forEach((label, i) => {
+      const isTagHovered = this.state.target === i;
+      
+      let isRelHovered = false;
+      if (tIds.length == 0) {isRelHovered = false;}
+      else {
+        for (let j = 0; j < tIds.length; j++) {
+          const from = tIds[j][0];
+          const to = tIds[j][1];
+          if (label.id == from || label.id == to) {isRelHovered = true}
+        }
+      }
+      
+      const isTarget = isTagHovered || isRelHovered;
       const styles = {
         position: "absolute",
         left: label.x,
@@ -32,7 +45,7 @@ class AnnotationLine extends BaseComponent {
         fontSize: fontSize,
         height: "100%",
         top: 0,
-        zIndex: this.state.target === i ? 1 : 0
+        zIndex: isTarget ? 1 : 0
       };
       boxes.push(
         <div style={styles} key={i}>
@@ -40,6 +53,7 @@ class AnnotationLine extends BaseComponent {
               id={label.id}
               text={label.name}
               color={label.color}
+              isTarget={isTarget}
               onMouseOver={() => {
                   this.onLabelMouseOver(i);
                   if (onMouseOver) {

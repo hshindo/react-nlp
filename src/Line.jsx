@@ -12,7 +12,6 @@ class Line extends BaseComponent {
       dataHandler: new DataHandler()
     };
   }
-
   onAnalysis(data) {
     const { annotations, colors, types, keepWhiteSpaces, onAnnotationsAnalysis, id} = this.props;
     const result = [];
@@ -70,7 +69,7 @@ class Line extends BaseComponent {
   }
 
   render() {
-    const { id, text, annotations, linum, colors, types, lineBreak, bgColor, keepWhiteSpaces } = this.props;
+    const { id, text, annotations, linum, colors, types, lineBreak, bgColor, tIds, keepWhiteSpaces } = this.props;
     const { theme } = this.context;
     let linumBox = null;
     let lineMarginLeft = 0;
@@ -102,7 +101,7 @@ class Line extends BaseComponent {
       <div style={style}>
         {linumBox}
         <div style={{position: "relative", marginLeft: lineMarginLeft, padding: theme.linePadding}}>
-          <InnerLineContainer dataHandler={this.state.dataHandler} />
+          <InnerLineContainer dataHandler={this.state.dataHandler} tIds={tIds} />
           <LineAnalyzer
               text={text}
               lineBreak={lineBreak}

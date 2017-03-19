@@ -38,6 +38,7 @@ class InnerLineContainer extends BaseComponent {
   render() {
     const {lineInfo, keepWhiteSpaces, fontSize} = this.state;
     const { theme } = this.context;
+    const { tIds } = this.props;
     let lines = null;
     if (lineInfo) {
       lines = [];
@@ -46,14 +47,53 @@ class InnerLineContainer extends BaseComponent {
         const annotationLines = [];
         info.annotations.forEach((labels, i) => {
           annotationLines.push(
-            <AnnotationLine key={i} fontSize={fontSize} labels={labels} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
+            <AnnotationLine key={i} fontSize={fontSize} labels={labels} tIds={tIds} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
+        
+        // -- keep space between words -↓
+        let tmp = [];
+        info.annotations.forEach((annotationLine) => {
+          annotationLine.forEach((annotation) => {
+            const from = annotation["from"];
+            const to = annotation["to"];
+            const name = annotation["name"];
+            tmp.push([from, to, name]);
+          });
+        });
+        let wordPad = [];
+        for (let i = 0; i < tmp.length; i++) {
+          const from = tmp[i][0];
+          const to = tmp[i][1];
+          const name = tmp[i][2];
+          let pad = name.length;
+          // pad value select wider one label in NE and POS label
+          for (let j = 0; j < wordPad.length; j++) {       
+            if (wordPad[j][0] == from && wordPad[j][1] == to && wordPad[j][2] > name.length ) {
+              pad = wordPad[j][2];
+            }
+          }
+          if ((to - from) <= pad) { wordPad.push([from, to, pad]) }
+          else { wordPad.push([from, to, 0]) }
+        }
+        // -- keep space between words -↑
+        
         const text = [];
         for (let j = 0; j < info.text.length; j++) {
           const style = {};
           style.paddingLeft = theme.characterPadding;
           style.paddingRight = theme.characterPadding;
+          
+          // -- keep space between words -↓
+          for (let k = 0; k < wordPad.length; k++) {
+            const from = wordPad[k][0];
+            const to = wordPad[k][1];
+            const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 25;
+            if (j == from) { style.paddingLeft = pad+"px" }
+            if (j == to) { style.paddingRight = pad+"px" }
+          }
+          // -- keep space between words -↑
+              
           if (this.state.markTarget) {
             const target = this.state.markTarget;
             if (target.from <= charCount && charCount <= target.to) {
@@ -69,7 +109,7 @@ class InnerLineContainer extends BaseComponent {
           charCount++;
         }
         lines.push(
-          <div key={i}>
+          <div key={i} style={{height: "150px", position: "relative", top: "80px", zIndex: "5"}}>
             {annotationLines}
             <div style={{whiteSpace: "nowrap"}}>{text}</div>
           </div>
