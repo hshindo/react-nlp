@@ -3,7 +3,7 @@ import BaseComponent from "./BaseComponent";
 
 class AnnotationLabel extends BaseComponent {
   render() {
-    const { text, color, target, isTarget, onMouseOver, onMouseOut, id } = this.props;
+    const { text, color, isTarget, onMouseOver, onMouseOut, id } = this.props;
     const { theme } = this.context;
     const widthValue = isTarget ? 2 : 1;
     return (

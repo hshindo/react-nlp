@@ -14,10 +14,8 @@ function detectCurvePoint(t1, t2) {
   } else if (t1.x > t2.x) {
     xMargin = xMargin - (t1.width-t2.width)*1/2;
   }
-  
   const x = minX + (xMargin / 2);
   const y = minY + (yMargin);
-  
   return {x: x, y: y};
 }
 

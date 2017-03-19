@@ -53,7 +53,6 @@ class AnnotationLine extends BaseComponent {
               id={label.id}
               text={label.name}
               color={label.color}
-              target={this.state.target}
               isTarget={isTarget}
               onMouseOver={() => {
                   this.onLabelMouseOver(i);
