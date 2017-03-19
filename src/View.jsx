@@ -103,6 +103,7 @@ class View extends React.Component {
         {lines}
         <FrontCanvas updateHandler={this.canvasUpdateHandler}
                      relations={relations}
+                     relLabelHovered={this.state.relLabelHovered}
                      onMouseOver={this.onMouseOver.bind(this)}
                      onMouseOut={this.onMouseOut.bind(this)}
         />

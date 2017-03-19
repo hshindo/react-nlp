@@ -19,16 +19,19 @@ export default class SVGRelationLabel extends BaseComponent {
     }
   }
   render() {
-    const { text, x, y, labelId, onMouseOver, onMouseOut } = this.props;
+    const { text, x, y, labelId, relLabelHovered, onMouseOver, onMouseOut } = this.props;
     const { offsetX, offsetY } = this.state;
     const { theme } = this.context;
+    const weight = (labelId == relLabelHovered) ? "bold" : "normal";
+    const bgcolor = (labelId == relLabelHovered) ? "#ffdddd" : theme.relationLabelBgColor;
     return (
       <foreignObject x={x - offsetX} y={y} ref="container">
         <span className="relationLabel" ref="text" xmlns="http://www.w3.org/1999/xhtml" style={{
           padding: theme.relationLabelPadding,
           color: theme.relationLabelColor,
-          backgroundColor: theme.relationLabelBgColor,
+          backgroundColor: bgcolor,
           fontSize: theme.relationLabelFontSize,
+          fontWeight: weight,
           pointerEvents: "auto"
         }} onMouseOver={onMouseOver.bind(this, labelId)} onMouseOut={onMouseOut.bind(this)} >
           {text}

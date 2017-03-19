@@ -44,7 +44,7 @@ class FrontCanvas extends BaseComponent {
     });
   }
   render() {
-    const {relations, onMouseOver, onMouseOut} = this.props;
+    const {relations, relLabelHovered, onMouseOver, onMouseOut} = this.props;
     const {labelIdService} = this.context;
     if (!(relations && relations.length)) {
       return null;
@@ -196,6 +196,7 @@ class FrontCanvas extends BaseComponent {
                                 label={label}
                                 heightAdj={labelsHeight[i][1]}
                                 isUpper={isUpper}
+                                relLabelHovered={relLabelHovered}
                                 onMouseOver={onMouseOver}
                                 onMouseOut={onMouseOut}
           />
