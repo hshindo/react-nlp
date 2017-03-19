@@ -53,7 +53,7 @@ class View extends React.Component {
     if (!data) {
       return null;
     }
-    
+    /* a pair of labels directed by hovered relation label */
     let tIds = [];
     relations.forEach((relation) => {
       const type = relation[0];

@@ -68,20 +68,20 @@ class LineAnalyzer extends BaseComponent {
       const name = annotation[3];
       tmp.push([from, to, name]);
     });
-    let adj = [];
+    let wordPad = [];
     for (let i = 0; i < tmp.length; i++) {
       const from = tmp[i][0];
       const to = tmp[i][1];
       const name = tmp[i][2];
       let pad = name.length;
       // pad value select wider one label in NE and POS label
-      for (let j = 0; j < adj.length; j++) {       
-        if (adj[j][0] == from && adj[j][1] == to && adj[j][2] > name.length ) {
-          pad = adj[j][2];
+      for (let j = 0; j < wordPad.length; j++) {       
+        if (wordPad[j][0] == from && wordPad[j][1] == to && wordPad[j][2] > name.length ) {
+          pad = wordPad[j][2];
         }
       }
-      if ((to - from) <= pad) { adj.push([from, to, pad]); }
-      else { adj.push([from, to, 0]); }
+      if ((to - from) <= pad) { wordPad.push([from, to, pad]) }
+      else { wordPad.push([from, to, 0]) }
     }
     // -- keep space between words -↑
 
@@ -92,17 +92,15 @@ class LineAnalyzer extends BaseComponent {
       if (text[i] === " " && keepWhiteSpaces) {
         spanStyles.whiteSpace = "pre";
       }
-      
       // -- keep space between words -↓
-      for (let k = 0; k < adj.length; k++) {
-        const from = adj[k][0];
-        const to = adj[k][1];
-        const pad = (adj[k][2]-(to-from)*1.5)*3 + 25;
+      for (let k = 0; k < wordPad.length; k++) {
+        const from = wordPad[k][0];
+        const to = wordPad[k][1];
+        const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 25;
         if (i == from) { spanStyles.paddingLeft = pad+"px"; }
         if (i == to) { spanStyles.paddingRight = pad+"px"; }
       }
       // -- keep space between words -↑
-      
       spans.push(
         <span key={i} ref={i} style={spanStyles}>{text[i]}</span>
       );
