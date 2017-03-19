@@ -46,6 +46,7 @@ class SVGRelationConnector extends BaseComponent {
     }
     
     let dAttr = "M" + (startX|0) + "," +(start.y|0) + " L " + (startX + pad|0) + "," + (cp.y - height|0) + " " + (endX - pad|0) + "," + (cp.y-height|0) + " " + (endX|0) + "," + (end.y-2|0);
+    const strokeWidth = (label == relLabelHovered) ? "2" : "1";
     
     let markerStart = null;
     let markerEnd = null;
@@ -66,7 +67,7 @@ class SVGRelationConnector extends BaseComponent {
     }
     return (
       <g>
-        <path d={dAttr} fill="none" stroke={this.context.theme.relationColor} strokeWidth="1" markerStart={markerStart} markerEnd={markerEnd} />
+        <path d={dAttr} fill="none" stroke={this.context.theme.relationColor} strokeWidth={strokeWidth} markerStart={markerStart} markerEnd={markerEnd} />
         <SVGRelationLabel text={text} x={cp.x|0} y={cp.y-15 - labelHeight|0} labelId={label} relLabelHovered={relLabelHovered} onMouseOver={onMouseOver} onMouseOut={onMouseOut} />
       </g>
     )

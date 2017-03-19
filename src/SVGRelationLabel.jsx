@@ -23,13 +23,12 @@ export default class SVGRelationLabel extends BaseComponent {
     const { offsetX, offsetY } = this.state;
     const { theme } = this.context;
     const weight = (labelId == relLabelHovered) ? "bold" : "normal";
-    const bgcolor = (labelId == relLabelHovered) ? "#ffdddd" : theme.relationLabelBgColor;
     return (
       <foreignObject x={x - offsetX} y={y} ref="container">
         <span className="relationLabel" ref="text" xmlns="http://www.w3.org/1999/xhtml" style={{
           padding: theme.relationLabelPadding,
           color: theme.relationLabelColor,
-          backgroundColor: bgcolor,
+          backgroundColor: theme.relationLabelBgColor,
           fontSize: theme.relationLabelFontSize,
           fontWeight: weight,
           pointerEvents: "auto"
