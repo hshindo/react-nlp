@@ -91,7 +91,7 @@ class View extends React.Component {
       color: this.theme.color,
       position: "relative",
       overflowX: "scroll",
-      overflowY: "hidden"
+      overflowY: "scroll"
     };
     if (this.theme.borderStyle === 1) {
       style.borderTop = this.theme.border;
