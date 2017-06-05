@@ -22,7 +22,8 @@ class Index extends React.Component {
       types: ["entity", "pos", "ne", "wiki"]
     };
 
-    this.ws = new WebSocket("ws://jukainlp.hshindo.com");
+    //this.ws = new WebSocket("ws://jukainlp.hshindo.com");
+	this.ws = new WebSocket("ws://localhost:3000/iostat");
     this.ws.onopen = (() => {
       toastr.options.timeOut = 1500;
       toastr.options.closeButton = true;
@@ -76,10 +77,10 @@ class Index extends React.Component {
   }
 
   onChange(newValue) {
-    this.setState({editorValue: newValue});
+	this.setState({editorValue: newValue});
     this.ws.send(JSON.stringify({
       "text": newValue
-    }));
+	}));
   }
 
   render() {
@@ -102,7 +103,7 @@ class Index extends React.Component {
             />
           </div>
           <div className="col-xs-6 col-md-6">
-            <View data={this.state.data.sentences}
+			<View data={this.state.data.sentences}
                   relations={this.state.data.relations}
                   linum={true}
                   types={this.state.types}
