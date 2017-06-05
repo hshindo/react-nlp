@@ -74,27 +74,32 @@ wsh = WebSocketHandler() do req, client
         start > 0 && push!(lines,[start-1,length(text)-1])
 
         # token
-        spans = []
+        spans = Dict()
+        id = 1
         start = 0
         for i = 1:length(text)
             char = text[i]
             if char == ' ' || char == '\n'
-                start > 0 && push!(spans,[start-1,i-2,"token","#84b62b"])
+                start > 0 && (spans["span-$id"] = [start-1,i-2,"token","#84b62b"])
+                id += 1
                 start = 0
             else
                 start == 0 && (start = i)
             end
         end
-        start > 0 && push!(spans,[start-1,length(text)-1,"token","#84b62b"])
+        start > 0 && (spans["span-$id"] = [start-1,length(text)-1,"token","#84b62b"])
 
         # relation
-        rels = []
-        for i = 1:length(tokens)÷3
-            ids = rand(1:length(tokens),2)
-            tokens[ids[1]]
+        spankeys = collect(keys(spans))
+        rels = Dict()
+        id = 1
+        for i = 1:length(spans)÷3
+            ids = rand(1:length(spans), 2)
+            rels["rel-$id"] = ["one-way", spankeys[ids[1]], spankeys[ids[2]], "label-$id", "#84b62b"]
+            id += 1
         end
 
-        res = Dict("line"=>lines, "span"=>[tokens])
+        res = Dict("line"=>lines, "span"=>spans, "relation" => rels)
         #println(res)
         write(client, JSON.json(res))
     end
