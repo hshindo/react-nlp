@@ -11,10 +11,10 @@ type Token
 end
 
 function Token(i::Int, j::Int)
-    h = i + j
+    #h = i + j
     #id = Int(rem(h,length(posconf))) + 1
     #label = posconf[id][1]
-    Token(i, j, "toklabel")
+    Token(i, j, "label")
 end
 
 function readconf(path::String)
@@ -57,63 +57,46 @@ wsh = WebSocketHandler() do req, client
             write(client, create_error("Error: key: text does not exist. Check the JSON format."))
             continue
         end
-
         text = json["text"]
-        doc = Vector{Token}[]
-        lines = []
-        line_s = 1
-        #lines = split(text, '\n', keep=false)
+
+        # line
+        lines = Vector{Int}[]
+        start = 0
         for i = 1:length(text)
             char = text[i]
             if char == '\n'
-                push!(lines, [line_s,i])
-                line_s = -1
+                start > 0 && push!(lines,[start-1,i-2])
+                start = 0
             else
-                line_s < 0 && (line_s = i)
+                start == 0 && (start = i)
             end
         end
+        start > 0 && push!(lines,[start-1,length(text)-1])
 
-        for sent in sents
-            tokens = Token[]
-            index = 1
-            for i = 1:length(sent)
-                c = sent[i]
-                if c == ' '
-                    index < i && push!(tokens, Token(index,i-1))
-                    index = i + 1
-                end
+        # token
+        spans = []
+        start = 0
+        for i = 1:length(text)
+            char = text[i]
+            if char == ' ' || char == '\n'
+                start > 0 && push!(spans,[start-1,i-2,"token","#84b62b"])
+                start = 0
+            else
+                start == 0 && (start = i)
             end
-            index <= length(sent) && push!(tokens, Token(index,length(sent)))
-            length(tokens) > 0 && push!(doc, tokens)
+        end
+        start > 0 && push!(spans,[start-1,length(text)-1,"token","#84b62b"])
+
+        # relation
+        rels = []
+        for i = 1:length(tokens)÷3
+            ids = rand(1:length(tokens),2)
+            tokens[ids[1]]
         end
 
-        sentences = []
-        relations = []
-        for i = 1:length(doc)
-            tokens = doc[i]
-            annos = []
-            for t in tokens
-                push!(annos, ["pos", t.i-1,t.j-1,t.label])
-                if rem(t.i,4) == 0
-                    #id = Int(rem(t.i,length(entityconf))) + 1
-                    #label = entityconf[id][1]
-                    label = "tlabel"
-                    push!(annos, ["entity",t.i-1,t.j-1,label])
-                end
-            end
-
-            heads = toheads(depparse(tokens))
-            for k = 1:length(heads)
-                h = heads[k]
-                h == 0 && continue
-                push!(relations, ["th",i-1,k-1,i-1,h-1,"rel_$(k-1)"])
-            end
-
-            push!(sentences, Dict("text"=>sents[i], "anno"=>annos))
-        end
-        res = JSON.json(Dict("sentences"=>sentences, "relations"=>relations))
+        res = Dict("line"=>lines, "span"=>[tokens])
         #println(res)
-        write(client, res)
+        write(client, JSON.json(res))
     end
 end
 
