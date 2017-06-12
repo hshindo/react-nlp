@@ -93,14 +93,14 @@ wsh = WebSocketHandler() do req, client
         spankeys = collect(keys(spans))
         rels = Dict()
         id = 1
-        for i = 1:length(spans)÷3
+        for i = 1:length(spans)/3
             ids = rand(1:length(spans), 2)
             rels["rel-$id"] = ["one-way", spankeys[ids[1]], spankeys[ids[2]], "label-$id", "#84b62b"]
             id += 1
         end
 
         res = Dict("line"=>lines, "span"=>spans, "relation" => rels)
-        #println(res)
+        println(JSON.json(res))
         write(client, JSON.json(res))
     end
 end
@@ -110,4 +110,4 @@ httph = HttpHandler() do req::Request, res::Response
     Response(onepage)
 end
 server = Server(httph, wsh)
-run(server, 8081)
+run(server, 3000)

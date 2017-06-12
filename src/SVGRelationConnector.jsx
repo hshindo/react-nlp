@@ -47,14 +47,19 @@ class SVGRelationConnector extends BaseComponent {
     const strokeWidth = (label == relLabelHovered) ? "2" : "1";
     
     let markerStart = null;
-    let markerEnd = null;
-    switch (markerType) {
+	let markerEnd = null;
+	
+	console.log(markerType);
+
+	switch (markerType) {
       case "ht":
         markerStart = markerUrl;
         break;
-      case "th":
+	  case "th":
+	  case "one-way":
         markerEnd = markerUrl;
-        break;
+		break;
+	  case "two-way":
       case "hh":
         markerStart = markerUrl;
         markerEnd = markerUrl;
