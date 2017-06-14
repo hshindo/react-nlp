@@ -49,8 +49,6 @@ class SVGRelationConnector extends BaseComponent {
     let markerStart = null;
 	let markerEnd = null;
 	
-	console.log(markerType);
-
 	switch (markerType) {
       case "ht":
         markerStart = markerUrl;

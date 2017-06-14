@@ -74,18 +74,22 @@ function reshapeJSON(data, sentence){
     var rel = [data.relation[r][0], first[0], first[1], second[0], second[1], data.relation[r][3]];
     neo.relations.push(rel);
   }
-  //console.log(JSON.stringify(neo));
   return(neo)
 }
 
-function getColors(data){
+function getColors(data, types){
   var colors = {};
+  for(var t in types){
+	colors[types[t]] = {};
+  }
   for(var s in data.span){
+	var ty = s.split("-")[0];
     var tag = data.span[s][2];
 	var col = data.span[s][3];
-	colors[tag] = col;
+	var tmp = {};
+	tmp[tag] = col;
+	colors[ty] = tmp;
   }
-  //console.log(JSON.stringify(colors));
   return colors;  
 }
 
@@ -123,17 +127,17 @@ class Index extends React.Component {
 
     this.ws.onmessage = ((msg) => {
 	  const data = JSON.parse(msg.data);
-	  console.log("*****",this.state.editorValue);
-	  //console.log(msg.data);
+	  //console.log("*****",this.state.editorValue);
 	  const reshapedData = reshapeJSON(data, this.state.editorValue);
 	  this.setState({data: reshapedData});
-	  
-	  //colors
-	  this.colors = getColors(data);
-	  
+	  	  
 	  //types
 	  var tmpTypes = getTypes(data);
 	  this.setState({types: tmpTypes});
+	  
+	  //colors
+	  this.colors = getColors(data,this.state.types);
+
     });
   }
 
@@ -177,10 +181,6 @@ class Index extends React.Component {
   }
 
   render() {
-  if(this.state.data.length!=0){
-	  //console.log(JSON.stringify(this.state.data.relations));
-	  //console.log(JSON.stringify(this.state.data.sentences));
-	}
     return (
       <div>
         <AppMenuBar onCheckMenuAnal={this.onCheckMenuAnal} onCheckMenuTran={this.onCheckMenuTran}/>
