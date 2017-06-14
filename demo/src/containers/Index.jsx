@@ -114,8 +114,8 @@ class Index extends React.Component {
       types: []
     };
 
-    //this.ws = new WebSocket("ws://jukainlp.hshindo.com");
-	this.ws = new WebSocket("ws://localhost:3000/iostat");
+    this.ws = new WebSocket("ws://jukainlp.hshindo.com");
+	//this.ws = new WebSocket("ws://localhost:3000/iostat");
     this.ws.onopen = (() => {
       toastr.options.timeOut = 1500;
       toastr.options.closeButton = true;
