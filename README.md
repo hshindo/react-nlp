@@ -171,9 +171,9 @@ npm run build
 npm run example
 ```
 
-Then, access [http://localhost:8080/](http://localhost:8080/) in your browser.
+Then, access [http://localhost:8081/](http://localhost:8081/) in your browser.
 
-If enable `Server Mode`, access [http://localhost:8080/?server=yes](http://localhost:8080/?server=yes).
+If enable `Server Mode`, access [http://localhost:8081/?server=yes](http://localhost:8080/?server=yes).
 
 
 ## Run Demo App
@@ -185,7 +185,7 @@ npm run build
 npm run demo
 ```
 
-Then, access [http://localhost:8080/](http://localhost:8080/) in your browser.
+Then, access [http://localhost:8081/](http://localhost:8081/) in your browser.
 
 ## Dependencies
 
