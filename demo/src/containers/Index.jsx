@@ -77,18 +77,22 @@ function reshapeJSON(data, sentence){
   return(neo)
 }
 
-function getColors(data, types){
-  var colors = {};
-  for(var t in types){
-	colors[types[t]] = {};
+function getColors(data, types, colors){
+  if(!colors){
+	colors = {};
   }
-  for(var s in data.span){
-	var ty = s.split("-")[0];
-    var tag = data.span[s][2];
-	var col = data.span[s][3];
-	var tmp = {};
-	tmp[tag] = col;
-	colors[ty] = tmp;
+  
+  for(var d in data.span){
+	  var ty = d.split("-")[0];
+	  if(ty in colors === false){
+		colors[ty] = {};
+	  }
+	  
+	  var tag = data.span[d][2];
+	  if(tag in colors[ty] === false){
+		var col = data.span[d][3];
+		colors[ty][tag] = col;
+	  }
   }
   return colors;  
 }
@@ -136,7 +140,7 @@ class Index extends React.Component {
 	  this.setState({types: tmpTypes});
 	  
 	  //colors
-	  this.colors = getColors(data,this.state.types);
+	  this.colors = getColors(data,this.state.types, this.colors);
 
     });
   }

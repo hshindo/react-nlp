@@ -60,7 +60,10 @@ class View extends React.Component {
       const t1Id = this.labelIdService.getLabelId(relation[1], relation[2]);
       const t2Id = this.labelIdService.getLabelId(relation[3], relation[4]);
       const label = relation[5] + "-" + relation[1];
-      if (label == this.state.relLabelHovered) {tIds.push([t1Id, t2Id])}
+	  if (label == this.state.relLabelHovered) {
+		tIds.push([t1Id, t2Id]);
+		console.log("yes");
+	  }
     });
     
     const lines = [];
