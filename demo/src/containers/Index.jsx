@@ -70,25 +70,29 @@ function reshapeJSON(data, sentence){
   //relations
   for(var r in data.relation){
     var first = getWordPosition(data,data.relation[r][1]);
-	var second = getWordPosition(data,data.relation[r][2]);
+    var second = getWordPosition(data,data.relation[r][2]);
     var rel = [data.relation[r][0], first[0], first[1], second[0], second[1], data.relation[r][3]];
     neo.relations.push(rel);
   }
   return(neo)
 }
 
-function getColors(data, types){
-  var colors = {};
-  for(var t in types){
-	colors[types[t]] = {};
+function getColors(data, types, colors){
+  if(!colors){
+    colors = {};
   }
-  for(var s in data.span){
-	var ty = s.split("-")[0];
-    var tag = data.span[s][2];
-	var col = data.span[s][3];
-	var tmp = {};
-	tmp[tag] = col;
-	colors[ty] = tmp;
+  
+  for(var d in data.span){
+      var ty = d.split("-")[0];
+      if(ty in colors === false){
+        colors[ty] = {};
+      }
+      
+      var tag = data.span[d][2];
+      if(tag in colors[ty] === false){
+      var col = data.span[d][3];
+        colors[ty][tag] = col;
+      }
   }
   return colors;  
 }
@@ -96,10 +100,10 @@ function getColors(data, types){
 function getTypes(data){
   var types = [];
   for(var s in data.span){
-	s = s.split("-")[0];
-	if(types.indexOf(s)==-1){
-	  types.push(s);
-	}
+    s = s.split("-")[0];
+    if(types.indexOf(s)==-1){
+      types.push(s);
+    }
   }
   return types;
 }
@@ -115,7 +119,7 @@ class Index extends React.Component {
     };
 
     this.ws = new WebSocket("ws://jukainlp.hshindo.com");
-	//this.ws = new WebSocket("ws://localhost:3000/iostat");
+    //this.ws = new WebSocket("ws://localhost:3000/iostat");
     this.ws.onopen = (() => {
       toastr.options.timeOut = 1500;
       toastr.options.closeButton = true;
@@ -126,17 +130,17 @@ class Index extends React.Component {
     this.onCheckMenuAnal = this.onCheckMenuAnal.bind(this);
 
     this.ws.onmessage = ((msg) => {
-	  const data = JSON.parse(msg.data);
-	  //console.log("*****",this.state.editorValue);
-	  const reshapedData = reshapeJSON(data, this.state.editorValue);
-	  this.setState({data: reshapedData});
-	  	  
-	  //types
-	  var tmpTypes = getTypes(data);
-	  this.setState({types: tmpTypes});
-	  
-	  //colors
-	  this.colors = getColors(data,this.state.types);
+      const data = JSON.parse(msg.data);
+      //console.log("*****",this.state.editorValue);
+      const reshapedData = reshapeJSON(data, this.state.editorValue);
+      this.setState({data: reshapedData});
+
+      //types
+      var tmpTypes = getTypes(data);
+      this.setState({types: tmpTypes});
+  
+      //colors
+      this.colors = getColors(data,this.state.types, this.colors);
 
     });
   }
@@ -174,10 +178,10 @@ class Index extends React.Component {
   }
 
   onChange(newValue) {
-	this.setState({editorValue: newValue});
+    this.setState({editorValue: newValue});
     this.ws.send(JSON.stringify({
       "text": newValue
-	}));
+    }));
   }
 
   render() {
@@ -200,7 +204,7 @@ class Index extends React.Component {
             />
           </div>
           <div className="col-xs-6 col-md-6">
-			<View data={this.state.data.sentences}
+          <View data={this.state.data.sentences}
                   relations={this.state.data.relations}
                   linum={true}
                   types={this.state.types}
