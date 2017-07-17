@@ -66,7 +66,19 @@ class InnerLineContainer extends BaseComponent {
           const from = tmp[i][0];
           const to = tmp[i][1];
           const name = tmp[i][2];
-          let pad = name.length;
+		  let pad = name.length;
+		  
+		  /*
+		  console.log(name + strWidth(name, '9pt', 'label'))
+		  let word = ''
+		  let wordWidth = 0
+		  for(var i = from; i <= to; i++){
+			  word += info.text[i]
+			  wordWidth += strWidth(info.text[i], 'large', 'word')
+		  }
+		  console.log(word + wordWidth)
+		  */
+		  
           // pad value select wider one label in NE and POS label
           for (let j = 0; j < wordPad.length; j++) {       
             if (wordPad[j][0] == from && wordPad[j][1] == to && wordPad[j][2] > name.length ) {
@@ -83,12 +95,12 @@ class InnerLineContainer extends BaseComponent {
           const style = {};
           style.paddingLeft = theme.characterPadding;
           style.paddingRight = theme.characterPadding;
-          
           // -- keep space between words -↓
           for (let k = 0; k < wordPad.length; k++) {
             const from = wordPad[k][0];
             const to = wordPad[k][1];
-            const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 25;
+            const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 25.5;
+
             if (j == from) { style.paddingLeft = pad+"px" }
             if (j == to) { style.paddingRight = pad+"px" }
           }
@@ -104,10 +116,13 @@ class InnerLineContainer extends BaseComponent {
             style.whiteSpace = "pre";
           }
           text.push(
-            <span key={j} style={style}>{info.text[j]}</span>
+            <span key={j} id={j} style={style}>{info.text[j]}</span>
           );
-          charCount++;
-        }
+		  charCount++;
+		 
+		  //console.log(strWidth(info.text[j], 'large'));
+		}
+				
         lines.push(
           <div key={i} style={{height: "150px", position: "relative", top: "80px", zIndex: "5"}}>
             {annotationLines}
@@ -122,6 +137,17 @@ class InnerLineContainer extends BaseComponent {
       </div>
     );
   }
+}
+
+function strWidth(str, size, mode) {
+  $(document.body).append($('<span id="f_strWidth_str_width" style="visibility:hidden;position:absolute;white-space:nowrap;font-size:' + size + ';"></span>'));
+  var e = $("#f_strWidth_str_width");
+  var width = e.text(str).get(0).offsetWidth;
+  e.empty();
+  if(mode == "label"){
+    width += 2*2;
+  }
+  return width;
 }
 
 export default InnerLineContainer;

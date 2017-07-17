@@ -57,8 +57,10 @@ function reshapeJSON(data, sentence){
     //anno
     var anno = [];
     for(var s in data.span){
-      if(start <= data.span[s][0] && data.span[s][1] <= end){
-        var tmp = [s.split("-")[0], data.span[s][0]-start, data.span[s][1]-start, data.span[s][2]];
+		if(start <= data.span[s][0] && data.span[s][1] <= end){
+		const originalTag = data.span[s][2];
+		const trimedTag = originalTag.length>5 ? originalTag.substring(0,5) : originalTag;
+        var tmp = [s.split("-")[0], data.span[s][0]-start, data.span[s][1]-start, trimedTag, originalTag];
         anno.push(tmp);
       }
     }
@@ -77,18 +79,22 @@ function reshapeJSON(data, sentence){
   return(neo)
 }
 
-function getColors(data, types){
-  var colors = {};
-  for(var t in types){
-	colors[types[t]] = {};
+function getColors(data, types, colors){
+  if(!colors){
+	colors = {};
   }
-  for(var s in data.span){
-	var ty = s.split("-")[0];
-    var tag = data.span[s][2];
-	var col = data.span[s][3];
-	var tmp = {};
-	tmp[tag] = col;
-	colors[ty] = tmp;
+  
+  for(var d in data.span){
+	  var ty = d.split("-")[0];
+	  if(ty in colors === false){
+		colors[ty] = {};
+	  }
+	  
+	  var tag = data.span[d][2];
+	  if(tag in colors[ty] === false){
+		var col = data.span[d][3];
+		colors[ty][tag] = col;
+	  }
   }
   return colors;  
 }
@@ -114,13 +120,8 @@ class Index extends React.Component {
       types: []
     };
 
-<<<<<<< HEAD
     //this.ws = new WebSocket("ws://jukainlp.hshindo.com");
 	this.ws = new WebSocket("ws://localhost:3000/iostat");
-=======
-    this.ws = new WebSocket("ws://jukainlp.hshindo.com");
-	//this.ws = new WebSocket("ws://localhost:3000/iostat");
->>>>>>> master
     this.ws.onopen = (() => {
       toastr.options.timeOut = 1500;
       toastr.options.closeButton = true;
@@ -141,7 +142,7 @@ class Index extends React.Component {
 	  this.setState({types: tmpTypes});
 	  
 	  //colors
-	  this.colors = getColors(data,this.state.types);
+	  this.colors = getColors(data,this.state.types, this.colors);
 
     });
   }

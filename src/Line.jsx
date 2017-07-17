@@ -26,6 +26,7 @@ class Line extends BaseComponent {
       const from = annotation[1];
       const to = annotation[2];
       const name = annotation[3];
+      const originalName = annotation[4];
       if (from > to) {
         return;
       }
@@ -44,16 +45,18 @@ class Line extends BaseComponent {
       if (fromTarget.line !== toTarget.line) {
         toTarget = data[result[fromTarget.line].text.length - 1];
       }
+
       const targetLine = fromTarget.line;
       let color = "white";
-      if (colors && colors[type] && colors[type][name]) {
-        color = colors[type][name];
+      if (colors && colors[type] && colors[type][originalName]) {
+        color = colors[type][originalName];
       }
       const targetAnnotationLine = null;
       if (!result[targetLine].annotations[typeIdx]) {
         result[targetLine].annotations[typeIdx] = [];
-      }
+      }  
       result[targetLine].annotations[typeIdx].push({
+        //information of word which tag modifies
         x: fromTarget.x,
         width: toTarget.x + toTarget.width - fromTarget.x,
         name: name,
