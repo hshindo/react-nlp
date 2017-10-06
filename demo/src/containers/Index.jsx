@@ -211,13 +211,7 @@ class Index extends React.Component {
                   linum={true}
                   types={this.state.types}
                   colors={this.colors}
-                  theme={{
-                    fontSize: 18,
-                    labelFontSize: "12px",
-                    linePadding: "10px",
-                    borderStyle: 2,
-                    characterPadding: "0px"
-                  }}b
+                  theme={{}}
             />
           </div>
         </div>

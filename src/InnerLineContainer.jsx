@@ -45,8 +45,8 @@ class InnerLineContainer extends BaseComponent {
       let charCount = 0;
       lineInfo.forEach((info, i) => {
         const annotationLines = [];
-        info.annotations.forEach((labels, i) => {
-          annotationLines.push(
+		info.annotations.forEach((labels, i) => {
+		  annotationLines.push(
             <AnnotationLine key={i} fontSize={fontSize} labels={labels} tIds={tIds} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
@@ -67,18 +67,7 @@ class InnerLineContainer extends BaseComponent {
           const to = tmp[i][1];
           const name = tmp[i][2];
 		  let pad = name.length;
-		  
-		  /*
-		  console.log(name + strWidth(name, '9pt', 'label'))
-		  let word = ''
-		  let wordWidth = 0
-		  for(var i = from; i <= to; i++){
-			  word += info.text[i]
-			  wordWidth += strWidth(info.text[i], 'large', 'word')
-		  }
-		  console.log(word + wordWidth)
-		  */
-		  
+		  		  
           // pad value select wider one label in NE and POS label
           for (let j = 0; j < wordPad.length; j++) {       
             if (wordPad[j][0] == from && wordPad[j][1] == to && wordPad[j][2] > name.length ) {
@@ -124,6 +113,7 @@ class InnerLineContainer extends BaseComponent {
 		}
 				
         lines.push(
+          // settings of label shower
           <div key={i} style={{height: "150px", position: "relative", top: "80px", zIndex: "5"}}>
             {annotationLines}
             <div style={{whiteSpace: "nowrap"}}>{text}</div>
