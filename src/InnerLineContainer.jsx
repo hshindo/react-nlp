@@ -88,7 +88,7 @@ class InnerLineContainer extends BaseComponent {
           for (let k = 0; k < wordPad.length; k++) {
             const from = wordPad[k][0];
             const to = wordPad[k][1];
-            const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 25.5;
+            const pad = (wordPad[k][2]-(to-from)*1.5)*3 + 5;
 
             if (j == from) { style.paddingLeft = pad+"px" }
             if (j == to) { style.paddingRight = pad+"px" }

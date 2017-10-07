@@ -7,7 +7,7 @@ const defaultTheme = {
   stripe: true,
   stripeColor: ["#ffffff", "#f2f2f2"],
   linePadding: "10px",
-  annotationLinePadding: "0px 3px",
+  annotationLinePadding: "1px",
   labelFontSize: "10px",
   labelColor: "black",
   labelPadding: "0px 1px",

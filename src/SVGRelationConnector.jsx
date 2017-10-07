@@ -32,8 +32,8 @@ class SVGRelationConnector extends BaseComponent {
     
     if (isUpper == true) {cp.y += 18;}
     
-	const pad = (start.x <= end.x) ? 10 : -10;
-	
+	const pad = (start.x <= end.x) ? 15 : -15;
+
 	let startX = start.x;
     let endX = end.x;
     if (start.x < end.x) {
@@ -50,8 +50,8 @@ class SVGRelationConnector extends BaseComponent {
 	let dAttr =	" M " + (startX|0) + "," +(start.y|0) + 
 				" Q " + controlStart[0] + "," + controlStart[1] + " " + (startX + pad|0) + "," + (cp.y - height|0) + 
 				" M " + (startX + pad|0) + "," + (cp.y - height|0) + 
-				" L " + (endX - pad|0) + "," + (cp.y-height|0) + 
-				" M " + (endX - pad|0) + "," + (cp.y-height|0) + 
+                " L " + (endX - pad|0) + "," + (cp.y-height|0) + 
+                " M " + (endX - pad|0) + "," + (cp.y-height|0) + 
 				" Q " + controlEnd[0] + "," + controlEnd[1] + " " + + (endX|0) + "," + (end.y|0);
 				
 	const strokeWidth = (label == relLabelHovered) ? "2" : "1";
