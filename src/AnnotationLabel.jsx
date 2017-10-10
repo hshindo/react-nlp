@@ -25,7 +25,7 @@ class AnnotationLabel extends BaseComponent {
         backgroundColor: color,
         border: border,
         borderWidth: widthValue,
-        borderRadius: 0,
+        borderRadius: "3px",
         transform: "translateX(-50%)",
         color: theme.labelColor,
         padding: theme.labelPadding,
