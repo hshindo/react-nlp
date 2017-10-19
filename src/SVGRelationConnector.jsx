@@ -3,17 +3,17 @@ import BaseComponent from "./BaseComponent";
 import SVGRelationLabel from "./SVGRelationLabel";
 
 
-function detectCurvePoint(t1, t2) {
-  const minX = Math.min(t1.x, t2.x);
-  const minY = Math.min(t1.y, t2.y);
+function detectCurvePoint(start, end) {
+  const minX = Math.min(start.x, end.x);
+  const minY = Math.min(start.y, end.y);
 
-  let xMargin = Math.abs(t2.x - t1.x);
-  let yMargin = Math.abs(t2.y - t1.y);
+  let xMargin = Math.abs(end.x - start.x);
+  let yMargin = Math.abs(end.y - start.y);
   
-  if (t1.x < t2.x) {
-    xMargin = xMargin + (t1.width-t2.width)*1/2;
-  } else if (t1.x > t2.x) {
-    xMargin = xMargin - (t1.width-t2.width)*1/2;
+  if (start.x < end.x) {
+    xMargin = xMargin + (start.width-end.width)*1/2;
+  } else if (start.x > end.x) {
+    xMargin = xMargin - (start.width-end.width)*1/2;
   }
   const x = minX + (xMargin / 2);
   const y = minY + (yMargin);
@@ -27,12 +27,14 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
     
+    console.log(heightAdj)
 	let height = (heightAdj>0) ? 13*heightAdj+10 : 13*heightAdj+10;
     let labelHeight = height;
     
     if (isUpper == true) {cp.y += 18;}
     
-	const pad = (start.x <= end.x) ? 15 : -15;
+	//const pad = (Math.abs(start.x-end.x)/10) * (-1)^parseInt(start.x <= end.x);
+	const pad = (end.x-start.x)/10;
 
 	let startX = start.x;
     let endX = end.x;
@@ -47,13 +49,21 @@ class SVGRelationConnector extends BaseComponent {
 	let controlStart = [startX, cp.y-height];
 	let controlEnd = [endX, cp.y-height];
 	
-	let dAttr =	" M " + (startX|0) + "," +(start.y|0) + 
-				" Q " + controlStart[0] + "," + controlStart[1] + " " + (startX + pad|0) + "," + (cp.y - height|0) + 
-				" M " + (startX + pad|0) + "," + (cp.y - height|0) + 
+    let dAttr;
+
+    if(start.x==end.x && start.y == end.y){
+        let circleWidth = 5
+        let circleHeight = 10
+        dAttr = " M " + (start.x-2) + "," + start.y +
+                " A " +  circleWidth + "," + circleHeight + " 0 1,1 " + (end.x+2) + "," + (end.y-2);
+    } else {
+        dAttr =	" M " + (startX|0) + "," +(start.y|0) + 
+		    	" Q " + controlStart[0] + "," + controlStart[1] + " " + (startX + pad|0) + "," + (cp.y - height|0) + 
+			    " M " + (startX + pad|0) + "," + (cp.y - height|0) + 
                 " L " + (endX - pad|0) + "," + (cp.y-height|0) + 
                 " M " + (endX - pad|0) + "," + (cp.y-height|0) + 
-				" Q " + controlEnd[0] + "," + controlEnd[1] + " " + + (endX|0) + "," + (end.y|0);
-				
+                " Q " + controlEnd[0] + "," + controlEnd[1] + " " + + (endX|0) + "," + (end.y|0);
+	}			
 	const strokeWidth = (label == relLabelHovered) ? "2" : "1";
     
     let markerStart = null;

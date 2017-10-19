@@ -14,7 +14,7 @@ const defaultTheme = {
   labelBorder: "solid 1px gray",
   markColor: "#ffe4e1",
   characterPadding: "0px",
-  relationColor: "black",
+  relationColor: "#2E2E2E",
   relationLabelFontSize: "12px",
   relationLabelPadding: "0px 0px",
   relationLabelBorder: "solid 1px gray",
