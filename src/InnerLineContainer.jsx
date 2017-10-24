@@ -45,8 +45,8 @@ class InnerLineContainer extends BaseComponent {
       let charCount = 0;
       lineInfo.forEach((info, i) => {
         const annotationLines = [];
-		info.annotations.forEach((labels, i) => {
-		  annotationLines.push(
+        info.annotations.forEach((labels, i) => {
+            annotationLines.push(
             <AnnotationLine key={i} fontSize={fontSize} labels={labels} tIds={tIds} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
@@ -66,7 +66,7 @@ class InnerLineContainer extends BaseComponent {
           const from = tmp[i][0];
           const to = tmp[i][1];
           const name = tmp[i][2];
-		  let pad = name.length;
+          let pad = name.length;
 		  		  
           // pad value select wider one label in NE and POS label
           for (let j = 0; j < wordPad.length; j++) {       
