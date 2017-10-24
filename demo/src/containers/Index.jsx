@@ -59,7 +59,7 @@ function reshapeJSON(data, sentence){
     for(var s in data.span){
       if(start <= data.span[s][0] && data.span[s][1] <= end){
         const originalTag = data.span[s][2];
-	      const trimedTag = originalTag.length>5 ? originalTag.substring(0,5) : originalTag;
+        const trimedTag = originalTag.length>5 ? originalTag.substring(0,5) : originalTag;
         var tmp = [s.split("-")[0], data.span[s][0]-start, data.span[s][1]-start, trimedTag, originalTag];
         anno.push(tmp);
       }
@@ -88,13 +88,13 @@ function getColors(data, types, colors){
     var ty = d.split("-")[0];
     if(ty in colors === false){
       colors[ty] = {};
-	  }
+    }
 	  
 	  var tag = data.span[d][2];
 	  if(tag in colors[ty] === false){
-		  var col = data.span[d][3];
-		  colors[ty][tag] = col;
-	  }
+      var col = data.span[d][3];
+      colors[ty][tag] = col;
+    }
   }
   return colors;  
 }
