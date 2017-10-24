@@ -27,15 +27,13 @@ class SVGRelationConnector extends BaseComponent {
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
 
-	let height = (heightAdj>0) ? 13*heightAdj+10 : 13*heightAdj+10;
+    let height = (heightAdj>0) ? 13*heightAdj+10 : 13*heightAdj+10;
     let labelHeight = height;
     
     if (isUpper == true) {cp.y += 18;}
-    
-	const pad = (end.x-start.x)/10;
-
-	let startX = start.x;
-    let endX = end.x;
+      const pad = (end.x-start.x)/10;
+      let startX = start.x;
+      let endX = end.x;
     if (start.x < end.x) {
       startX += start.width * 1/2;
       endX -= end.width * 1/2;
@@ -44,8 +42,8 @@ class SVGRelationConnector extends BaseComponent {
       endX += end.width * 1/2;
 	}
 	
-	let controlStart = [startX, cp.y-height];
-	let controlEnd = [endX, cp.y-height];
+    let controlStart = [startX, cp.y-height];
+    let controlEnd = [endX, cp.y-height];
 	
     let dAttr;
 
@@ -56,8 +54,8 @@ class SVGRelationConnector extends BaseComponent {
                 " A " +  circleWidth + "," + circleHeight + " 0 1,1 " + (end.x+2) + "," + (end.y-2);
     } else {
         dAttr =	" M " + (startX|0) + "," +(start.y|0) + 
-		    	" Q " + controlStart[0] + "," + controlStart[1] + " " + (startX + pad|0) + "," + (cp.y - height|0) + 
-			    " M " + (startX + pad|0) + "," + (cp.y - height|0) + 
+                " Q " + controlStart[0] + "," + controlStart[1] + " " + (startX + pad|0) + "," + (cp.y - height|0) + 
+                " M " + (startX + pad|0) + "," + (cp.y - height|0) + 
                 " L " + (endX - pad|0) + "," + (cp.y-height|0) + 
                 " M " + (endX - pad|0) + "," + (cp.y-height|0) + 
                 " Q " + controlEnd[0] + "," + controlEnd[1] + " " + + (endX|0) + "," + (end.y|0);
