@@ -46,7 +46,7 @@ class InnerLineContainer extends BaseComponent {
       lineInfo.forEach((info, i) => {
         const annotationLines = [];
         info.annotations.forEach((labels, i) => {
-            annotationLines.push(
+          annotationLines.push(
             <AnnotationLine key={i} fontSize={fontSize} labels={labels} tIds={tIds} onMouseOver={this.onLabelMouseOver.bind(this)} onMouseOut={this.onLabelMouseOut.bind(this)} />
           );
         });
