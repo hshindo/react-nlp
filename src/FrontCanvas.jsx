@@ -104,14 +104,13 @@ class FrontCanvas extends BaseComponent {
     
     let labelsHeight = {}; // [[id, from, to], height]
     while (labelsPos.length != 0) {
-      // sort by x distance
+      // sort by x distance, close order
       labelsPos.sort(function(a, b){
         if (Math.abs(a[1] - a[2]) < Math.abs(b[1] - b[2])) return -1;
         if (Math.abs(a[1] - a[2]) > Math.abs(b[1] - b[2])) return 1;
         return 0;
       });
       
-      let arrowCross = 0;
       while (1) {
         let height = 0;
         const gap = Math.abs(labelsPos[0][1] - labelsPos[0][2]);
@@ -122,16 +121,21 @@ class FrontCanvas extends BaseComponent {
         if (gap == 0) { height = 1; }
         
         let tmp = [];
+
         for (var key in labelsHeight) {
+          // ignore target if it is on other line
           if (labelsPos[0][3] != labelsHeight[key][0][3]) { continue; }
           
           const labelPos = labelsHeight[key][0];
           const labelHeight = labelsHeight[key][1];
           const gap_tmp = Math.abs(labelPos[1] - labelPos[2]);
+          
+          // orders if target
           const minOrder_tmp = Math.min(labelPos[1], labelPos[2]);
           const maxOrder_tmp = Math.max(labelPos[1], labelPos[2]);
           
-          const isIncluding = minOrder <= minOrder_tmp && maxOrder_tmp <= maxOrder;
+          const isIncluding = (minOrder <= minOrder_tmp && minOrder_tmp <= maxOrder) ||
+                              (minOrder <= maxOrder_tmp && maxOrder_tmp <= maxOrder);
           const isException = (minOrder_tmp == maxOrder_tmp) && (minOrder == minOrder_tmp || maxOrder == maxOrder_tmp);
           if (minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) {
             height += 1;

@@ -26,14 +26,12 @@ class SVGRelationConnector extends BaseComponent {
     const text = label.split("-")[0];
     const markerUrl = "url(#" + markerId + ")";
     const cp = detectCurvePoint(start, end);
-    
-    console.log(heightAdj)
+
 	let height = (heightAdj>0) ? 13*heightAdj+10 : 13*heightAdj+10;
     let labelHeight = height;
     
     if (isUpper == true) {cp.y += 18;}
     
-	//const pad = (Math.abs(start.x-end.x)/10) * (-1)^parseInt(start.x <= end.x);
 	const pad = (end.x-start.x)/10;
 
 	let startX = start.x;
