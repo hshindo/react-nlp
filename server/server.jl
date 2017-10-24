@@ -80,9 +80,9 @@ wsh = WebSocketHandler() do req, client
         for i = 1:length(text)
             char = text[i]
             if char == ' ' || char == '\n'
-			    selecter = rand()
-				label = selecter<0.5 ? "TK" : "SUPERLONGTOKEN"	
-				color = selecter<0.5 ? "#84b62b" : "#FBFF5E"
+              selecter = rand()
+              label = selecter<0.5 ? "TK" : "SUPERLONGTOKEN"	
+              color = selecter<0.5 ? "#84b62b" : "#FBFF5E"
                 start > 0 && (spans["span-$id"] = [start-1,i-2,label,color])
                 id += 1
                 start = 0
