@@ -58,8 +58,8 @@ function reshapeJSON(data, sentence){
     var anno = [];
     for(var s in data.span){
 		if(start <= data.span[s][0] && data.span[s][1] <= end){
-		const originalTag = data.span[s][2];
-		const trimedTag = originalTag.length>5 ? originalTag.substring(0,5) : originalTag;
+		    const originalTag = data.span[s][2];
+		    const trimedTag = originalTag.length>5 ? originalTag.substring(0,5) : originalTag;
         var tmp = [s.split("-")[0], data.span[s][0]-start, data.span[s][1]-start, trimedTag, originalTag];
         anno.push(tmp);
       }
@@ -81,19 +81,19 @@ function reshapeJSON(data, sentence){
 
 function getColors(data, types, colors){
   if(!colors){
-	colors = {};
+	  colors = {};
   }
   
   for(var d in data.span){
 	  var ty = d.split("-")[0];
 	  if(ty in colors === false){
-		colors[ty] = {};
+		  colors[ty] = {};
 	  }
 	  
 	  var tag = data.span[d][2];
 	  if(tag in colors[ty] === false){
-		var col = data.span[d][3];
-		colors[ty][tag] = col;
+		  var col = data.span[d][3];
+		  colors[ty][tag] = col;
 	  }
   }
   return colors;  
@@ -102,10 +102,10 @@ function getColors(data, types, colors){
 function getTypes(data){
   var types = [];
   for(var s in data.span){
-	s = s.split("-")[0];
-	if(types.indexOf(s)==-1){
-	  types.push(s);
-	}
+	  s = s.split("-")[0];
+	  if(types.indexOf(s)==-1){
+	    types.push(s);
+	  }
   }
   return types;
 }
@@ -121,7 +121,7 @@ class Index extends React.Component {
     };
 
     //this.ws = new WebSocket("ws://jukainlp.hshindo.com");
-	this.ws = new WebSocket("ws://localhost:3000/iostat");
+	  this.ws = new WebSocket("ws://localhost:3000/iostat");
     this.ws.onopen = (() => {
       toastr.options.timeOut = 1500;
       toastr.options.closeButton = true;
