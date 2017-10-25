@@ -136,7 +136,8 @@ class FrontCanvas extends BaseComponent {
           
           const isIncluding = (minOrder <= minOrder_tmp && minOrder_tmp <= maxOrder) ||
                               (minOrder <= maxOrder_tmp && maxOrder_tmp <= maxOrder);
-          const isException = (minOrder_tmp == maxOrder_tmp) && (minOrder == minOrder_tmp || maxOrder == maxOrder_tmp);
+          const isException = ((minOrder_tmp == maxOrder_tmp) && (minOrder == minOrder_tmp || maxOrder == maxOrder_tmp)) ||
+                              (minOrder_tmp == maxOrder) || (maxOrder_tmp == minOrder);
           if (minOrder == minOrder_tmp && maxOrder_tmp == maxOrder) {
             height += 1;
           }
